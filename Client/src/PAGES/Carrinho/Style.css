@@ -1,0 +1,142 @@
+.CardNotificacao{
+    max-width: 450px;
+    width: 90%;
+    padding: 10px;
+}
+.CardNotificacao h4{
+    font-weight: bold;
+    font-size: 14px;
+    margin: 0 0 8px 0;
+}
+.CardNotificacao p{font-size: 14px;margin:0;font-weight: 500;}
+.Aviso{
+    background-color: var(--FundoAviso);
+    border-left: 5px solid var(--BorderAviso);
+}
+.Observacao{
+    background-color: var(--FundoObservacao);
+    border-left: 5px solid var(--BorderObservacao);
+}
+
+table{
+    width: 100%;
+    background-color: var(--BorderTable);
+    border-radius: 5px;
+    margin: 20px 0;
+}
+thead th{
+    background-color: var(--TableHead);
+    font-weight: 600;
+    font-size: 12px;
+    color:var(--TextoSecundario);
+    padding: 10px;
+    text-align: center;
+}
+tr{display:flex; border-bottom:1px solid var(--BorderTable)}
+th{
+    background-color: var(--CardSecond);
+    font-size: 12px;
+    color:var(--TextoSecundario);
+    padding: 10px;
+    font-weight: 400;
+    text-align: start;
+}
+.TableIndex{
+    flex: 1;
+    border-right:1px solid var(--BorderTable);
+    text-align: center;
+}
+.TableItem{flex: 8;}
+.TableQntVal{
+    flex: 1.5;
+    border-left:1px solid var(--BorderTable);
+    overflow: hidden;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.TableQntVal button{
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+}
+.TableQntVal input{
+    width: 100%;
+    height: 100%;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    color: white;
+}
+.SVG-red path{stroke: #FF0000;}
+.SVG-blue path{stroke: #0F62FE;}
+.SVG-green path{stroke: var(--SucessButton);}
+
+.TablePagamento{
+    display: flex;
+    align-items: start;
+    max-width: 650px;
+    width: 90%;
+    margin: 20px 0 50px 0;
+}
+.TablePagamento > div{
+    width: 50%;
+    height: min-content;
+    background-color: var(--CardSecond);
+    border: 1px solid var(--BorderTable);
+}
+.TablePagamento > div h5,
+.TablePagamento > div h4{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 36px;
+    background-color: var(--TableHead);
+}
+.TablePagamento > div h4{
+    font-weight: 500;
+    background-color: transparent;
+}
+.TablePagamento > div h5{border: 1px solid var(--BorderTable);}
+.TablePagamento > div > div{margin: 5px 0}
+
+.TablePagamento .Totais{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.TablePagamento .Totais button{
+    align-self: center;
+    padding: 5px 20px;
+    background-color: var(--SucessButton);
+    width: 45%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    outline: none;
+    border: 0;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.TablePagamento .Totais h4{margin: 10px 0}
+
+@media screen and (max-width: 740px) {
+    .TableIndex{display: none;}
+    .TableQntVal:nth-child(4){display: none;}
+    .TablePagamento{
+        flex-direction: column;
+        height: max-content;
+        align-items: center;
+    }
+    .TablePagamento > div{width: 90%;}
+    .TablePagamento .Totais{margin-top: 10px;}
+}

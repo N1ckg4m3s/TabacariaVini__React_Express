@@ -1,0 +1,60 @@
+.Filtro-Essencia{
+    padding: 8px 0;
+    margin-top: 10px;
+    width: 220px;
+    background-color: var(--NavFooterPrimary);
+}
+.Filtro-Essencia{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.ItensCheckbox{
+    width: calc(100% - 40px);
+    display: flex;
+    flex-wrap: wrap;
+}
+.ItensCheckbox>div{
+    width: 50%;
+    height: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+}
+.ItensCheckbox>div>div>svg{display: none;}
+.ItensCheckbox>div>input{
+    opacity: 0;
+    position: absolute;
+    width: 100%;height: 100%;
+}
+.ItensCheckbox>div:has(input:checked) > div{
+    background-color: var(--InnerCheckBox-Checked);
+    border:2px solid var(--BorderCheckBox-Checked);
+}
+.ItensCheckbox>div:has(input:checked) > div svg{width: 60%;height: 100%;margin: 0 0 1px 4px;display: block;}
+.ItensCheckbox>div:has(input:checked) > div svg path{stroke:white}
+.ItensCheckbox>div>div{
+    width: 15px;
+    height: 15px;
+    background-color: var(--InnerCheckBox-UnChecked);
+    border:2px solid var(--BorderCheckBox-UnChecked);
+    margin-right: 5px;
+}
+
+.Filtro-Essencia .Linha-Separação{margin-top:10px;}
+
+.Filtro-Essencia button{
+    background-color: var(--SucessButton);
+    padding: 4px 30px;
+    font-weight: 600;
+    color: white;
+    outline: none;
+    border: 0;
+    border-radius: 10px;
+    margin-top: 20px;
+}

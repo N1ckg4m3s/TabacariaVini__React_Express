@@ -1,0 +1,277 @@
+                    /* ESTILO BASE */
+.TextoSection{
+    color: var(--TextoSecundario);
+    width: 100%;
+    text-align: center;
+}
+.Linha-Separação{
+    width: calc(100% - 200px);
+    height:1px;
+    background-color: var(--TextoSecundario);
+}
+
+/* HEADER */
+header{
+    position: relative;
+    width: 100%;
+    height: 500px;
+}
+header section{
+    margin: 130px 0 0 50px;
+    position: absolute;
+}
+header section h2{font-size:50px}
+header section h3{font-size:18px}
+header section>*{
+    color: var(--TextoSecundario);
+    margin: 10px 0;
+}
+header span{
+    color: var(--TextoPrimario);
+}
+header img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* CARDS ACESSO */
+.Cards-Acesso,.Combos-e-Sujestoes,
+.EntregaRetirada,.Contato{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Container{
+    width: 920px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.Container>*{
+    margin: 10px;
+}
+
+.Link-Card-Acesso{
+    position: relative;
+    width: 430px;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.Link-Card-Acesso>img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: grayscale(1);
+}
+.Link-Card-Acesso h3{
+    color: var(--TextoPrimario);
+    font-family: 'Irish Grover';
+    -webkit-text-stroke: black;
+    font-size: 44px;
+}
+.Link-Card-Acesso .Link-Card-Button{
+    text-decoration: none;
+    padding: 5px;
+    color:var(--TextoPrimario);
+    border: 1px solid var(--TextoPrimario);
+    background-color: transparent;
+    border-radius: 5px;
+    font-family: 'Irish Grover';
+    font-size: 20px;
+}
+
+/* COMBOS e SUJESTOES */
+.Botoes-Acesso-Pomoção button{
+    height: 30px;
+    font-size: 14px;
+    color: var(--TextoSecundario);
+    outline: none;
+    border: 0;
+    margin: 0 20px;
+    background-color: transparent;
+}
+.Botoes-Acesso-Pomoção-Selected{
+    background-color: var(--CardThird) !important;
+    border-radius: 5px !important;
+}
+
+/* ENTREGA e RETIRADA */
+.EntregaRetirada{
+    display: flex;
+    flex-direction: column;
+}
+.ItemEntrega{transform:translateX(-100px);}
+.ItemRetirada{transform:translateX(100px);}
+.ItemEntrega, .ItemRetirada{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--CardThird);
+    overflow: hidden;
+    width: 500px;
+    height: 180px;
+    margin: 10px 0;
+}
+.ItemEntrega > div, .ItemRetirada > div{
+    background-color: var(--CardSecond);
+    position: relative;
+    z-index:1
+}
+.ItemEntrega .Texto, .ItemRetirada .Texto{
+    padding:10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+}
+.ItemEntrega .Texto h3, .ItemRetirada .Texto h3{
+    text-align:center;
+    z-index:1;
+    font-size:16px;
+}
+.ItemEntrega .Texto h4,.ItemRetirada .Texto h4{
+    z-index:1;
+    font-size:12px;
+}
+.EntregaRetirada .ItemEntrega > div::after{
+    z-index:-1;
+    content: "";
+    background-color: var(--CardSecond);
+    position: absolute;
+    top:-20px;
+    right:-20px;
+    width: 40px;
+    height: 110%;
+    transform: rotate(10deg);
+}
+.ItemRetirada > div::after{
+    z-index:-1;
+    content: "";
+    background-color: var(--CardSecond);
+    position: absolute;
+    bottom:-20px;
+    left:-20px;
+    width: 40px;
+    height: 120%;
+    transform: rotate(-10deg);
+}
+.ItemEntrega .ItemImagem{
+    margin-right:10px;
+}
+.ItemRetirada .ItemImagem{
+    margin-left: 50px;
+}
+
+/* CONTATO */
+.RedesSociais{
+    display: flex;
+    flex-direction: row;
+}
+.RedesSociais div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--TextoSecundario);
+    margin: 0 20px;
+}
+.RedesSociais .IMAGEM{
+    width: 50px;
+    height: 50px;
+}
+                    /* ADAPTAÇÃO TELAS MENORES DE 900PX */
+@media screen and (max-width: 900px) {
+    .Linha-Separação{
+        width: calc(100% - 50px);
+        height:1px;
+        background-color: var(--TextoSecundario);
+    }
+    /* HEADER */
+    header section h2{font-size:40px}
+    header section h3{font-size:16px}
+
+    /* CARDS ACESSO */
+    .Container{
+        width: 100%;}
+    .Link-Card-Acesso{
+        width: 300px;
+        height: 200px;
+    }
+
+    /* COMBOS e SUJESTOES */
+
+    /* ENTREGA e RETIRADA */
+    .ItemEntrega{transform:translateX(-30px);}
+    .ItemRetirada{transform:translateX(30px);}
+    /* CONTATO */
+
+}
+
+                    /* ADAPTAÇÃO TELAS MENORES DE 680PX */
+@media screen and (max-width: 680px) {
+    .TextoSection{
+        color: var(--TextoSecundario);
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+    }
+    .Linha-Separação{
+        width:100%;
+        height:1px;
+        background-color: var(--TextoSecundario);
+    }
+    /* HEADER */
+    header section h2{font-size:30px}
+    header section h3{font-size:14px}
+
+    /* CARDS ACESSO */
+    .Container{
+        flex-direction: column;
+        align-items: center;
+    }
+    /* COMBOS e SUJESTOES */
+
+    /* ENTREGA e RETIRADA */
+    .ItemEntrega{transform:translateX(-30px);}
+    .ItemRetirada{transform:translateX(30px);}
+    .ItemEntrega, .ItemRetirada{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--CardThird);
+        overflow: hidden;
+        width: 300px;
+        height: 140px;
+        margin: 10px 0;
+    }
+    .ItemEntrega .Texto, .ItemRetirada .Texto{
+        padding:10px;
+        height: 100%;
+        width: 150%;
+    }
+    .ItemEntrega .Texto h3, .ItemRetirada .Texto h3{
+        text-align:center;
+        z-index:1;
+        font-size:14px;
+    }
+    .ItemEntrega .Texto h4, .ItemRetirada .Texto h4{
+        z-index:1;
+        font-size:10px;
+    }
+    .ItemEntrega .ItemImagem{
+        margin-right:10px;
+    }
+    .ItemRetirada .ItemImagem{
+        margin: 10px 55px 10px 20px;
+    }
+    /* CONTATO */
+
+}

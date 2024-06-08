@@ -1,0 +1,57 @@
+                    /* ESTILO BASE */
+footer{
+    height: 40px;
+    background-color: var(--NavFooterPrimary);
+    padding: 10px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+footer > *{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.SVG-white path{
+    stroke: var(--TextoSecundario);
+}
+.BoxLogo{
+    order: 1;
+    width: calc(100% - 160px);
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.IconesAcessos >*{
+    margin: 0 10px;
+}
+.LogoFooterBar{height: 100%;}
+.IconesAcessos{order: 2;}
+.TextoFooter{order: 0;width: auto; color: var(--TextoSecundario);}
+
+                    /* ADAPTAÇÃO TELAS MENORES DE 900PX */
+@media screen and (max-width: 900px) {
+    footer{
+        padding: 10px 20px;
+    }
+    .BoxLogo{
+        width: calc(100% - 40px);
+    }
+}
+
+                    /* ADAPTAÇÃO TELAS MENORES DE 680PX */
+@media screen and (max-width: 680px) {
+    footer{
+        flex-direction: column;
+        height: min-content;
+    }
+    footer > *{
+        height: 38px;
+    }
+    .BoxLogo{order: 0;}
+    .IconesAcessos{order: 1;}
+    .TextoFooter{order: 2;margin: 0;}
+}

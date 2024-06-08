@@ -1,0 +1,80 @@
+                    /* ESTILO BASE */
+.CorpoPagina{
+    display: flex;
+    width: 95%;
+    max-width: 1060px;
+    margin:auto;
+    flex: 1;
+}
+.Catalogo{display: flex;flex-wrap: wrap;justify-content: center;width: 100%;}
+.FILTRO{min-width: 250px;}
+
+.BotaoFiltro{
+    width: 120px;
+    margin-left: auto;
+    outline: none;
+    border: 1px solid var(--TextoSecundario);
+    background-color: transparent;
+    border-radius: 20px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 15px;
+    margin-top: 10px;
+}
+
+.PaginacaoDiv{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.PaginacaoDiv button{
+    margin: 0 5px;
+    background-color: transparent;
+    outline: none;
+    border: 0;
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+    color: var(--TextoSecundario);
+    border-radius: 5px;
+    transition: .05s;
+}
+.PaginacaoDiv button:hover{
+    background-color: var(--CardFourth);
+}
+.PaginacaoDiv .PaginasSelecionada{
+    background-color: var(--CardFourth);
+    border-radius: 5px;
+    height: 30px;
+    width: 30px;
+}
+.BotaoPaginacao{color: var(--TextoSecundario);}
+.BotaoPaginacao:disabled{color: var(--CardThird);}
+.BotaoPaginacao:disabled:hover{background-color: transparent;}
+
+
+@media screen and (max-width: 850px) {
+    .CorpoPagina{
+        width: calc(100% - 20px);
+        margin-left: 10px;
+        margin-top: 50px;
+    }
+    .Catalogo{justify-content:center}
+    .BotaoFiltro{display:flex}
+
+    .FILTRO{
+        position: fixed;
+        z-index: 2;
+        width: 100%;
+        height: 75%;
+        bottom: 0;
+        background: linear-gradient(0deg, 
+            #000000 30%,
+            #000000b3 80%, 
+            #00000000 100%
+        );
+    }
+}

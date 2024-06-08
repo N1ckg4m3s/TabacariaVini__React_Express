@@ -1,0 +1,81 @@
+.ComboCard-Tudo{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    margin-top: 26px;
+}
+.ComboCard-Valor{
+    background-color: var(--CardThird);
+    border-radius: 50%;
+    border: 1px solid var(--Black);
+    width: 55px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -45px;
+}
+.ComboCard-Header{
+    top:0;
+    width: 170px;
+    height: 65px;
+    background-color: var(--CardSecond);
+    border-radius: 20px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+}
+.ComboCard-Header h4{margin-top: 35px;}
+.ComboCard-Header .R{
+    position: absolute;
+    top: 53px;
+    left: 15px;
+    width: 42%;
+    height: 20px;
+    background-color: var(--CardSecond);
+    transform: rotate(14deg);
+}
+.ComboCard-Header .L{
+    position: absolute;
+    top: 53px;
+    right:15px;
+    width: 42%;
+    height: 20px;
+    background-color: var(--CardSecond);
+    transform: rotate(-14deg);
+}
+.ComboCard-Header .C{
+    position: absolute;
+    border-radius: 50%;
+    top:71.75px;
+    right:80px;
+    width: 10px;
+    height: 10px;
+    background-color: var(--CardSecond);
+}
+.ComboCard-Body{
+    width:156px;
+    height:max-content;
+    margin-top:50px;
+    padding-top: 30px;
+    background-color: var(--CardThird);
+    border-radius: 10px;
+    border: 1px solid var(--Black);
+    padding-bottom: 20px;
+}
+.ComboCard-Button{
+    background-color: var(--CardSecond);
+    margin-top: -16px;
+    border-radius: 10px;
+    border: 1px solid var(--Black);
+    outline: none;
+    padding: 5px;
+    width: 60%;
+}
+li{list-style-type: none;font-size: 15px; margin: 3px 15px;}
+.List-Possui{width: 15px;height: 15px;}
+.List-Possui path{stroke: var(--SucessButton);stroke-width: 2px;}
+.List-NaoPossui{width: 15px;height: 15px;}
+.List-NaoPossui path{stroke: var(--Red);stroke-width: 2px;}

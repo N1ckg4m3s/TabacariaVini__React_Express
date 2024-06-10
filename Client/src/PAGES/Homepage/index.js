@@ -1,4 +1,4 @@
-// COMPONENTES IMPORTADOS //
+// COMPONENTES IMPORTADOS  //
 import FooterBar from "../../Modulos/FooterBar/Index"
 import TopBar from "../../Modulos/TopBar/Index"
 import ComboCard from "../../Modulos/ComboCard"

@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/static/css/main.05054275.css",
+    "main.js": "/static/js/main.52f23bf8.js",
+    "static/js/453.62b3d248.chunk.js": "/static/js/453.62b3d248.chunk.js",
+    "static/js/787.2d8303ad.chunk.js": "/static/js/787.2d8303ad.chunk.js",
+    "static/media/Roshs.png": "/static/media/Roshs.41ee73eefc67de6377c3.png",
+    "static/media/FundoHeaderBar.png": "/static/media/FundoHeaderBar.88741c82e1a022ca5c9d.png",
+    "static/media/Essencias.png": "/static/media/Essencias.0ecee9785514406c8b86.png",
+    "static/media/CarvãoAcesso.png": "/static/media/CarvãoAcesso.1af1844de5db642bf6a0.png",
+    "static/media/ZeroResult.svg": "/static/media/ZeroResult.081b50f1b2d1ab882be8129b65a6d46c.svg",
+    "static/media/Caminão.svg": "/static/media/Caminão.bacec2775ddd3e0283261a0ae0ad5a24.svg",
+    "static/media/Instagram.svg": "/static/media/Instagram.41e3582ec0d90d89eef58a89515a053d.svg",
+    "static/media/whatsapp.svg": "/static/media/whatsapp.ec003902f0e870479ae1dcf1b899d303.svg",
+    "static/media/Point.svg": "/static/media/Point.8625168724db541e316758075e7c7ff5.svg",
+    "index.html": "/index.html",
+    "static/media/Carrinho.svg": "/static/media/Carrinho.f64a411ae24a8a5fce9be9541f34a047.svg",
+    "static/media/Edit.svg": "/static/media/Edit.5716eab82dde172ae039f8dd519c5b55.svg",
+    "static/media/facebook.svg": "/static/media/facebook.26704d6d2d6bf364a5a9c935b5a9557a.svg",
+    "static/media/Suporte.svg": "/static/media/Suporte.d8acfc00fedb456bd18dd7e04069d3f8.svg",
+    "static/media/Lupa.svg": "/static/media/Lupa.e9bfa7970a2d203444a9327b8e780bd7.svg",
+    "static/media/Menu.svg": "/static/media/Menu.c5b8c1769dc0631828205f1ad7fe70b6.svg",
+    "static/media/Remover.svg": "/static/media/Remover.911f6f698634ac45b73781a7fb49da49.svg",
+    "static/media/Filtro.svg": "/static/media/Filtro.373184c6ef9b849b73dba5dfdf8cbd49.svg",
+    "static/media/Certo.svg": "/static/media/Certo.2a693ee44bfb3cd6546307bb0f82aa40.svg",
+    "static/media/SetaEnviar.svg": "/static/media/SetaEnviar.9209a2ad497865250e319ae3aa21abfd.svg",
+    "main.05054275.css.map": "/static/css/main.05054275.css.map",
+    "main.52f23bf8.js.map": "/static/js/main.52f23bf8.js.map",
+    "453.62b3d248.chunk.js.map": "/static/js/453.62b3d248.chunk.js.map",
+    "787.2d8303ad.chunk.js.map": "/static/js/787.2d8303ad.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.05054275.css",
+    "static/js/main.52f23bf8.js"
+  ]
+}

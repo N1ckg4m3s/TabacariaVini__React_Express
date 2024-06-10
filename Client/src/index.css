@@ -1,48 +1,102 @@
-:root{
-  --COR-DE-FUNDO:#222222;
-  /* Texto */
-  --TextoPrimario:#F4B331;
-  --TextoSecundario:#FFFFFF;
-  --NavText:#C1C8C0;
+@media (prefers-color-scheme:dark) {
+  :root{
+    --COR-DE-FUNDO:#222222;
+    /* Texto */
+    --TextoPrimario:#F4B331;
+    --TextoSecundario:#FFFFFF;
+    --NavText:#C1C8C0;
+    
+    /* Card */
+    --CardPrimary:#303134;
+    --CardSecond:#363636;
+    --CardThird:#505050;
+    --CardFourth:#797979;
+    
+    --NavFooterPrimary:#272C30;
+    --SecondNav:#202529;
+    
+    --BorderCheckBox-UnChecked:#4C4C4C;
+    --InnerCheckBox-UnChecked:#838383;
+    --BorderCheckBox-Checked:#003AD6;
+    --InnerCheckBox-Checked:#0F62FE;
   
-  /* Card */
-  --CardPrimary:#303134;
-  --CardSecond:#363636;
-  --CardThird:#505050;
-  --CardFourth:#797979;
-  
-  --NavFooterPrimary:#272C30;
-  --SecondNav:#202529;
-  
-  --BorderCheckBox-UnChecked:#4C4C4C;
-  --InnerCheckBox-UnChecked:#838383;
-  --BorderCheckBox-Checked:#003AD6;
-  --InnerCheckBox-Checked:#0F62FE;
+    --BorderTable:#5B5B5B;
+    --TableHead:#404040;
+    
+    --FreeProgres:#D9D9D9;
+    --SucessButton:#25A249;
+    
+    /* sobras cores */
+    --Border:#1B1B1B;
+    --BordaImagem:#AFB1B6;
+    
+    --Mentolada:#00FF7F;
+    --Gelada:#00FFFF;
+    --Quente:#FF4500;
+    --Doce:#FFB6C1;
+    --Citrica:#FFD700;
+    
+    --BorderObservacao:#0F62FE;
+    --FundoObservacao:#A9C7FF;
+    
+    --BorderAviso:#F1C21B;
+    --FundoAviso:#FAE9AD;
+    
+    --Black:#000000;
+    --Red:#FF0000;
 
-  --BorderTable:#5B5B5B;
-  --TableHead:#404040;
-  
-  --FreeProgres:#D9D9D9;
-  --SucessButton:#25A249;
-  
-  /* sobras cores */
-  --Border:#1B1B1B;
-  --BordaImagem:#AFB1B6;
-  
-  --Mentolada:#00FF7F;
-  --Gelada:#00FFFF;
-  --Quente:#FF4500;
-  --Doce:#FFB6C1;
-  --Citrica:#FFD700;
-  
-  --BorderObservacao:#0F62FE;
-  --FundoObservacao:#A9C7FF;
-  
-  --BorderAviso:#F1C21B;
-  --FundoAviso:#FAE9AD;
-  
-  --Black:#000000;
-  --Red:#FF0000;
+    --FiltroImage:grayscale(1);
+  }
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --COR-DE-FUNDO: #E6E6E6; /**/
+    /* Texto */
+    --TextoPrimario: #F4B331; /**/
+    --TextoSecundario: #ffffff; /**/
+    --NavText: #060606; /**/
+
+    /* Card */
+    --CardPrimary: #f0f0f0;
+    --CardSecond: #c9c9c9; /**/
+    --CardThird: #bcbcbc; /**/
+    --CardFourth: #aaaaaa;
+
+    --NavFooterPrimary:#b8b8b8; /**/
+    --SecondNav: #c9c9c9; /**/
+
+    --BorderCheckBox-UnChecked:#4C4C4C;
+    --InnerCheckBox-UnChecked:#838383;
+    --BorderCheckBox-Checked:#003AD6; /**/
+    --InnerCheckBox-Checked:#0F62FE; /**/
+
+    --BorderTable: #dddddd;
+    --TableHead: #f2f2f2;
+
+    --FreeProgres: #333333;
+    --SucessButton: #25A249; /**/
+
+    /* sobras cores */
+    --Border: #999999;
+    --BordaImagem: #cccccc;
+
+    --Mentolada:#00FF7F; /**/
+    --Gelada:#00FFFF; /**/
+    --Quente:#FF4500; /**/
+    --Doce:#FFB6C1; /**/
+    --Citrica:#FFD700; /**/
+    
+    --BorderObservacao:#0F62FE; /**/
+    --FundoObservacao:#A9C7FF; /**/
+    
+    --BorderAviso:#F1C21B; /**/
+    --FundoAviso:#FAE9AD; /**/
+    
+    --Black:#000000; /**/
+    --Red:#FF0000; /**/
+
+    --FiltroImage:grayscale(0); /**/
+  }
 }
 /*
   1º Primary

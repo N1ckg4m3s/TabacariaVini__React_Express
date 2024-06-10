@@ -4,7 +4,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: var(--CardPrimary);
+    color: var(--NavText);
+    text-decoration: none;
     position: relative;
     background-color: var(--CardPrimary);
     width: 100px;
@@ -16,7 +17,7 @@
 }
 .SmallItemCard div{
     margin-top: 5px;
-    color: var(--TextoSecundario);
+    color: var(--NavText);
     height: 25px;
     
     white-space: nowrap;

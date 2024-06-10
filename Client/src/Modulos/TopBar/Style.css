@@ -23,7 +23,7 @@ nav .BarraPrincipal .LinksAcesso{
     z-index: 2;
 }
 .Link{
-    color: var(--TextoSecundario);
+    color: var(--NavText);
     text-decoration: none;
     margin: 0 15px;
 }

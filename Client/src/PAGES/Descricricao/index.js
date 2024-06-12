@@ -29,10 +29,10 @@ function DescricaoPage(){
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        const [Class,Id]=search.slice(1).split("&") // slice() Remove o ?
+        const Id=search.slice(1) // slice() Remove o '?'
         const loadItems = async () => {
             if(Id==null){return}
-            const item = await CatalogoControler.ObterItemByIndex(Class,Id);
+            let item = await CatalogoControler.ObterItemByIndex(Id);
             const mesmaMarca = await CatalogoControler.ObterItemDaMarca(item);
             const relevantes = await CatalogoControler.ObterItemRelevantes(item);
             SetItem(item);
@@ -49,7 +49,12 @@ function DescricaoPage(){
                 <div className="CarrinhoFrame">
                     <div>
                         <h2 className="Texto-Cordial">Deseja adicionar</h2>
-                        <h2 className="Texto-Nome-Produto"> {Item&& `${Item.Especificacao||Item.Marca}: ${Item.Cor||Item.Nome}`}</h2>
+                        <h2 className="Texto-Nome-Produto">{
+                            Item && ((Item.Categoria==="Acessorio" &&
+                                `${Item.Especificacao}: ${Item.Cor}`) ||
+                                `${Item.Marca}: ${Item.Nome}`|| "##: ##"
+                            )
+                        }</h2>
                         <h2 className="Texto-Cordial">No seu carrinho?</h2>
                         <div className="Linha-Separação" style={{width:'calc(100% - 20px)'}}/>
                         <div className="Info-Div">
@@ -58,7 +63,7 @@ function DescricaoPage(){
                         </div>
                         <div className="Info-Div">
                             <label>Sub-Total</label>
-                            <label>{Item && (NumeroItensCarrinho*Item.Preco.DinPix)}</label>
+                            <label>{Item && (NumeroItensCarrinho*Item.Valor.DinPix)}</label>
                         </div>
                         <div className="BotoesAcao">
                             <button onClick={()=>SetCarrinhoFrame(false)}>CANCELAR</button>
@@ -77,7 +82,13 @@ function DescricaoPage(){
                         <img src={ImgVazio} alt="Imagem do produto"/>
                     </div>
                     <div className="OutrasInfo">
-                        <label className="NomeItem"> {Item&& `${Item.Especificacao||Item.Marca}: ${Item.Cor||Item.Nome}`} </label>
+                        <label className="NomeItem"> {
+                            Item && ((Item.Categoria==="Acessorio" &&
+                                `${Item.Especificacao}: ${Item.Cor}`) ||
+                                `${Item.Marca}: ${Item.Nome}`|| "##: ##"
+                            )
+                        }
+                        </label>
                         <label className="DescricaoItem"> {Item&&Item.Descricao} </label>
                         <div className="SaborIntencity">
                             <h4>Doce: $$$$</h4>

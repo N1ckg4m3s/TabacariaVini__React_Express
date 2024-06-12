@@ -1,0 +1,39 @@
+.CorpoPagina >*{width: 100%;}
+.CorpoPagina .BotoesAcaoFetch{
+    display: flex;
+    justify-content: end;
+    margin: 20px 0 10px 0;
+}
+.BotoesAcaoFetch button{
+    width:150px;
+    height: 36px;
+    border: 1px solid var(--BorderTable);
+    background-color: var(--TableHead);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+}
+.CorpoPagina .TabelaSection{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.CorpoPagina .TabelaSection .Linha-Separação{width: 100%;margin-bottom: 10px;}
+.CorpoPagina .TabelaSection button{width: fit-content}
+tr{display: flex;}
+
+.TabelaSection > button span{
+    margin-right:10px;
+}
+.TabelaSection > button{
+    width:150px;
+    height: 36px;
+    border: 1px solid var(--BorderTable);
+    background-color: var(--TableHead);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+}
+.AoContrario{
+    transform: rotate(180deg);
+}

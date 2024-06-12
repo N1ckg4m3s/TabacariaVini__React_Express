@@ -24,6 +24,7 @@ function CatalogoPage(){
             (windowWidth<716 && windowWidth>=537 && 3) || 2)*5
     
     const [ProdutosCatalogo,SetProdutosCatalogo] = useState([])
+    const [ProdutosCatalogoFILTRADO,SetProdutosCatalogoFILTRADO] = useState([])
     const [Paginacao,SetPaginacao] = useState([0,0])
     useEffect(() => {
         const CarregarDados = async () => {
@@ -43,7 +44,6 @@ function CatalogoPage(){
                         default:
                             break;
                     }
-    
                     if (Valores) {
                         await SetProdutosCatalogo(Valores);
                         await SetPaginacao([0, Math.ceil(Valores.length / CardPorPagina)]);
@@ -86,19 +86,25 @@ function CatalogoPage(){
                 <FiltroIcon className="SVG-white"/>
             </button>
             {(windowWidth<850 && FiltrAberto) && <div className="FILTRO">
-                {'FILTROS<850'}
+                <FiltroEssencias Itens={ProdutosCatalogo}
+                    CallBack={async(ItensFiltrdos)=>{
+                        await SetProdutosCatalogoFILTRADO(ItensFiltrdos)
+                        await SetPaginacao([0, Math.ceil(ItensFiltrdos.length / CardPorPagina)]);
+                    }}
+                />
             </div>}
             <div className="CorpoPagina">
                 {windowWidth>850 && <div className="FILTRO">
-                    {/* <FiltroEssencias Itens={ProdutosCatalogo}
-                        CallBack={()=>{
-                            
+                    <FiltroEssencias Itens={ProdutosCatalogo}
+                        CallBack={async(ItensFiltrdos)=>{
+                            await SetProdutosCatalogoFILTRADO(ItensFiltrdos)
+                            await SetPaginacao([0, Math.ceil(ItensFiltrdos.length / CardPorPagina)]);
                         }}
-                    /> */}
+                    />
                 </div>}
                 <div style={{width:"100%"}}>
                     <div className="Catalogo">
-                    {ProdutosCatalogo && ProdutosCatalogo.slice(
+                        {((ProdutosCatalogoFILTRADO.length>0 && ProdutosCatalogoFILTRADO) || ProdutosCatalogo).slice(
                         CardPorPagina * Paginacao[0],
                         CardPorPagina + CardPorPagina * Paginacao[0]
                     ).map((Value, Index) => {
@@ -107,7 +113,7 @@ function CatalogoPage(){
                             Objeto={Value}
                         />;
                     })}
-                    {!ProdutosCatalogo &&
+                    {!ProdutosCatalogo && !ProdutosCatalogoFILTRADO &&
                         <ZeroResult />
                     }
                     </div>

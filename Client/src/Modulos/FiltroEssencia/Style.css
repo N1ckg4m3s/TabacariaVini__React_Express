@@ -3,15 +3,12 @@
     margin-top: 10px;
     width: 220px;
     background-color: var(--NavFooterPrimary);
-}
-.Filtro-Essencia{
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
-
 
 .ItensCheckbox{
     width: calc(100% - 40px);
@@ -57,4 +54,15 @@
     border: 0;
     border-radius: 10px;
     margin-top: 20px;
+}
+
+@media screen and (max-width: 850px) {
+    .Filtro-Essencia{
+        padding: 20px;
+        background-color: rgba(var(--NavFooterPrimary),.1);
+    }
+    .Filtro-Essencia>*{
+        margin: 5px 0;
+    }
+    .ItensCheckbox{flex-direction: column;}
 }

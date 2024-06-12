@@ -1,35 +1,38 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ReactComponent as Certo } from "./Imagens/Certo.svg";
 import "./Style.css";
 
-function FiltroEssencias({ Itens = [] }) {
-    const TipoEssencias = ["Citrica", "Doce", "Gelada", "Menta", "Quente"];
+function FiltroEssencias({ Itens, CallBack }) {
+    const TipoEssencias = useMemo(() => ["Citrica", "Doce", "Gelada", "Menta", "Quente"], []);
 
-    const [PrefEssencia, setPrefEssencia] = useState({});
-    const [PrefMarca, setPrefMarca] = useState({});
-    const [Marcas, setMarcas] = useState([]);
-
-    useEffect(() => {
-        // Inicializar estados de essências com true
+    const [PrefEssencia, setPrefEssencia] = useState(() => {
         const initialEssencias = {};
         TipoEssencias.forEach((essencia) => {
             initialEssencias[essencia] = true;
         });
-        setPrefEssencia(initialEssencias);
+        return initialEssencias;
+    });
 
-        // Obter marcas dos itens
+    const [PrefMarca, setPrefMarca] = useState(() => {
         if (Array.isArray(Itens)) {
             const uniqueMarcas = [...new Set(Itens.map(item => item.Marca))];
-            setMarcas(uniqueMarcas);
-
-            // Inicializar estados de marcas com true
             const initialMarcas = {};
             uniqueMarcas.forEach((marca) => {
                 initialMarcas[marca] = true;
             });
-            setPrefMarca(initialMarcas);
+            return initialMarcas;
         }
-    }, [Itens]); // Dependência correta: Itens
+        return {};
+    });
+
+    const [Marcas, setMarcas] = useState([]);
+
+    useEffect(() => {
+        if (Array.isArray(Itens)) {
+            const uniqueMarcas = [...new Set(Itens.map(item => item.Marca))];
+            setMarcas(uniqueMarcas);
+        }
+    }, [Itens]);
 
     const handleEssenciaChange = (essencia) => {
         setPrefEssencia((prev) => ({
@@ -46,16 +49,16 @@ function FiltroEssencias({ Itens = [] }) {
     };
 
     const Filtrar = () => {
-        // Implementar a lógica de filtro conforme necessário
-        console.log("Preferências de Essências:", PrefEssencia);
-        console.log("Preferências de Marcas:", PrefMarca);
-        // CallBack({ PrefEssencia, PrefMarca });
+        const ItensFiltrados = Itens.filter(Item =>
+            PrefMarca[Item.Marca] && Item
+        );
+        CallBack(ItensFiltrados);
     };
 
     return (
         <div className="Filtro-Essencia">
             <label className="Texto-Results">Resultados: ##</label>
-            <div className="Linha-Separacao" style={{ width: '100%', backgroundColor: 'var(--SecondNav)' }} />
+            <div className="Linha-Separacao" style={{ width: '100%', backgroundColor: 'var(--SecondNav)',height:'2px' }} />
             <label className="SubTextos">Preferencia de essencia</label>
             <div className="ItensCheckbox">
                 {TipoEssencias.map((value, index) => (
@@ -70,7 +73,7 @@ function FiltroEssencias({ Itens = [] }) {
                     </div>
                 ))}
             </div>
-            <div className="Linha-Separacao" style={{ width: '100%', backgroundColor: 'var(--SecondNav)' }} />
+            <div className="Linha-Separacao" style={{ width: '100%', backgroundColor: 'var(--SecondNav)',height:'2px' }} />
             <label className="SubTextos">Preferencia de marca</label>
             <div className="ItensCheckbox">
                 {Marcas.map((value, index) => (

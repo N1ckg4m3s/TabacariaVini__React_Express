@@ -1,4 +1,6 @@
 const path = require('path');
+const multer = require('multer');
+
 // Caminho para o arquivo JSON
 const DATA_FILE = path.join(__dirname, 'DataBaseLocal', 'Produtos.json');
 const fs = require('fs');
@@ -22,8 +24,22 @@ const lerArquivoJSON = (callback) => {
     }
   });
 };
+const salvarProdutosJSON = (produtos, callback) => {
+    fs.writeFile(DATA_FILE, JSON.stringify(produtos, null, 2), (err) => {
+      if (err) {
+        console.error("Erro ao salvar arquivo JSON:", err);
+        callback(err);
+      } else {
+        console.log("Arquivo JSON atualizado com sucesso");
+        callback(null);
+      }
+    });
+  };
+  
+  
 
-// Função para obter produtos por categoria
+/*                  FUNÇÕES LADO CLIENTE                */
+/*           FUNÇÕES GET           */
 exports.Obter_Produtos_Por_Categoria = (req,res_CallBack) => {
     const{Categ}=req.query
     categoria=(Categ=="Carvao"||Categ=="Aluminio")?"Carvao_Aluminio":Categ
@@ -36,9 +52,6 @@ exports.Obter_Produtos_Por_Categoria = (req,res_CallBack) => {
         })
     return false;
 };
-exports.Obter_Todos_Os_Produtos=(req,res)=>{
-
-}
 exports.Obter_Produtos_Da_Mesma_Marca=(req,res)=>{
     const { Marca, Id } = req.query;
     this.Obter_Produtos_Por_Categoria(req,(Data)=>{
@@ -64,3 +77,85 @@ exports.Obter_Produto_Por_Id=(req,res)=>{
         res.json(data[Id])
     })
 }
+/* NÃO TERA FUNÇÕES DELETE, POIS O DB SE BASEIA NA LISTA RAIZ */
+
+/*                    FUNÇÕES LADO ADM                   */
+/*           FUNÇÕES GET           */
+exports.Obter_Todos_Os_Produtos=(req,res)=>{
+    lerArquivoJSON((err,data)=>{
+        res.json(data)
+    })
+}
+
+/*           FUNÇÕES POST           */
+exports.AdicionarProduto = (req, res) => {
+    const { Categoria, Cor, Descricao, Especificacao, Intensidades, Marca, Nome, Quantidade, Sabor, Valor, Imagem } = req.body;
+
+    lerArquivoJSON((err, produtos) => {
+        if (err) {
+            return res.status(500).json({ message: 'Erro interno ao ler o arquivo JSON' });
+        }
+        // Cria o novo produto
+        const novoProduto = {
+            "ID":produtos.length,
+            "CATEGORIA":Categoria,
+            "COR":Cor,
+            "DESCRIÇÃO":Descricao,
+            "ESPECIFICACAO": Especificacao,
+            "INTENSIDADES":Intensidades,
+            "MARCA":Marca,
+            "NOME":Nome,
+            "QUANTIDADE":Quantidade,
+            "SABOR":Sabor,
+            "VALOR":Valor,
+            "IMAGEM": Imagem // Salva o caminho da imagem
+        };
+        // Adiciona o novo produto à lista de produtos
+        produtos.push(novoProduto);
+        // Salva a lista atualizada de produtos de volta no arquivo JSON
+        salvarProdutosJSON(produtos, (err) => {
+            if (err) {
+            return res.status(500).json({ message: 'Erro interno ao salvar o arquivo JSON' });
+            }
+            res.status(200).json({ message: 'Produto adicionado com sucesso' });
+        });
+    });
+};
+  
+
+/*           FUNÇÕES UPDATE           */
+exports.AlterarProduto=(req,res)=>{
+    console.log(req.body)
+    const {Id, Categoria, Cor, Descricao, Especificacao, Intensidades, Marca, Nome, Quantidade, Sabor, Valor, Imagem } = req.body;
+
+    lerArquivoJSON((err, produtos) => {
+        if (err) {
+            return res.status(500).json({ message: 'Erro interno ao ler o arquivo JSON' });
+        }
+        const novoProduto = {
+            "ID":Id,
+            "CATEGORIA":Categoria,
+            "COR":Cor,
+            "DESCRIÇÃO":Descricao,
+            "ESPECIFICACAO": Especificacao,
+            "INTENSIDADES":Intensidades,
+            "MARCA":Marca,
+            "NOME":Nome,
+            "QUANTIDADE":Quantidade,
+            "SABOR":Sabor,
+            "VALOR":Valor,
+            "IMAGEM": Imagem // Salva o caminho da imagem
+        };
+        produtos[produtos.findIndex(e=>e.ID==Id)]=(novoProduto);
+        
+        salvarProdutosJSON(produtos, (err) => {
+            if (err) {
+            return res.status(500).json({ message: 'Erro interno ao salvar o arquivo JSON' });
+            }
+            res.status(200).json({ message: 'Produto adicionado com sucesso' });
+        });
+    });
+
+}
+
+/* NÃO TERA FUNÇÕES DELETE, POIS O DB SE BASEIA NA LISTA RAIZ */

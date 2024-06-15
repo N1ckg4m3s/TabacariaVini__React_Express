@@ -2,23 +2,25 @@ import { Produto } from "./Classes"
 var CaminhoAcessoApi="http://localhost:5000"
 
 const TransformarRetorno=(data)=>{
-    var NovoProduto=new Produto()
-    NovoProduto.Categoria=data.CATEGORIA
-    NovoProduto.Cor=data.COR
-    NovoProduto.Descricao=data.DESCRIÇÃO
-    NovoProduto.Especificacao=data.ESPECIFICACAO
-    NovoProduto.ID=data.ID
-    NovoProduto.Imagem=data.IMAGEM
-    NovoProduto.Intensidades=data.INTENSIDADES
-    NovoProduto.Marca=data.MARCA
-    NovoProduto.Nome=data.NOME
-    NovoProduto.Quantidade=data.QUANTIDADE
-    NovoProduto.Sabor=data.SABOR
-    NovoProduto.Valor={
-        "DinPix":data.VALOR.DinPix,
-        "Cart":data.VALOR.Cart
-    };
-   return NovoProduto
+    if(data.ID){
+        var NovoProduto=new Produto()
+        NovoProduto.Categoria=data.CATEGORIA
+        NovoProduto.Cor=data.COR
+        NovoProduto.Descricao=data.DESCRIÇÃO
+        NovoProduto.Especificacao=data.ESPECIFICACAO
+        NovoProduto.ID=data.ID
+        NovoProduto.Imagem=data.IMAGEM
+        NovoProduto.Intensidades=data.INTENSIDADES
+        NovoProduto.Marca=data.MARCA
+        NovoProduto.Nome=data.NOME
+        NovoProduto.Quantidade=data.QUANTIDADE
+        NovoProduto.Sabor=data.SABOR
+        NovoProduto.Valor={
+            "DinPix":data.VALOR.DinPix,
+            "Cart":data.VALOR.Cart
+        };
+       return NovoProduto
+    }
 }
 
 class CatalogoControler{

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 import "./Style.css"
 function SmallItemCard(Props){
     return(
-        <Link to={`/Descricao?${Props.Objeto.constructor.name}&${Props.Objeto.Id}`} className="SmallItemCard">
+        <Link to={`/Descricao?${Props.Objeto.ID}`} className="SmallItemCard">
             {Props.MostrarMarca &&
                 <div>{Props.Objeto.Marca}</div>
             }

@@ -3,7 +3,8 @@ import { Link } from "react-router-dom"
 import "./Style.css"
 
 function ItemCard(Props){
-    return (
+    if(Props.Objeto===undefined){return}
+    return(
         <Link to={`/Descricao?${Props.Objeto.ID}`} className="ItemCard">
             <div className="ItemCardMarca">{Props.Objeto.Marca}</div>
             <img src={Props.Objeto.Imagem === "" ? ImgVazio : Props.Objeto.Imagem} alt="" />

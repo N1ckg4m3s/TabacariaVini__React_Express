@@ -90,6 +90,7 @@ function CatalogoPage(){
                     CallBack={async(ItensFiltrdos)=>{
                         await SetProdutosCatalogoFILTRADO(ItensFiltrdos)
                         await SetPaginacao([0, Math.ceil(ItensFiltrdos.length / CardPorPagina)]);
+                        SetFiltrAberto(false)
                     }}
                 />
             </div>}

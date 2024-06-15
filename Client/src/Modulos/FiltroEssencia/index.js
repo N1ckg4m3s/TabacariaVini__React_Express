@@ -29,8 +29,11 @@ function FiltroEssencias({ Itens, CallBack }) {
 
     useEffect(() => {
         if (Array.isArray(Itens)) {
-            const uniqueMarcas = [...new Set(Itens.map(item => item.Marca))];
-            setMarcas(uniqueMarcas);
+            const uniqueMarcas = [...new Set(Itens.map(item => item!==undefined && item.Marca))];
+            setMarcas(
+                uniqueMarcas.includes(false)?
+                uniqueMarcas.slice(1):
+                uniqueMarcas);
         }
     }, [Itens]);
 

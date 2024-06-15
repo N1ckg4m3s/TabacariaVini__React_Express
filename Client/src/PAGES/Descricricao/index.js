@@ -75,8 +75,7 @@ function DescricaoPage(){
             <div className="CorpoPagina" style={{
                 maxWidth:'830px',
                 marginTop:'10px',
-                flexDirection:'column'
-                }}>
+                flexDirection:'column'}}>
                 <section className="ItemInfos">
                     <div className="FotoItem">
                         <img src={ImgVazio} alt="Imagem do produto"/>

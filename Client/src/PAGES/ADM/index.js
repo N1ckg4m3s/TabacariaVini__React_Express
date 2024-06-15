@@ -3,10 +3,12 @@ import FooterBar from "../../Modulos/FooterBar/Index"
 import TopBar from "../../Modulos/TopBar/Index"
 
 import { ReactComponent as SetaBaixo } from "./Imagens/SetaBaixo.svg";
+import { ReactComponent as Edit } from "./Imagens/Edit.svg";
 
 import "./Style.css"
 import { useEffect, useState } from "react";
 import AdmControlerInstance from "../../Controle/AdmControler";
+import { Link } from "react-router-dom";
 function AdmPage(){
     const CardPorPagina=20
     const [ShowAtualizados,SetShowAtualizados]=useState(true);
@@ -25,19 +27,31 @@ function AdmPage(){
         const ObterItensDoBack=async()=>{
             let Valores = await AdmControlerInstance.ObterItensSistema()
             await SetItensSistema(Valores)
-            await SetPaginacaoItensSistema([0, Math.ceil(Valores.length / CardPorPagina)]);
+            await SetPaginacaoItensSistema([0, Math.ceil((Valores||[]).length / CardPorPagina)]);
             
             Valores = await AdmControlerInstance.ObterPromos()
             await SetItensPromo(Valores)
-            await SetPaginacaoShowPromo([0, Math.ceil(Valores.length / CardPorPagina)]);
+            await SetPaginacaoShowPromo([0, Math.ceil((Valores||[]).length / CardPorPagina)]);
             
             Valores = await AdmControlerInstance.ObterItensAtualizados()
             await SetItensAtualizados(Valores)
-            await SetPaginacaoItensAtualizados([0, Math.ceil(Valores.length / CardPorPagina)]);
+            await SetPaginacaoItensAtualizados([0, Math.ceil((Valores||[]).length / CardPorPagina)]);
         }
         ObterItensDoBack()
     },[])
-    console.log(ItensSistema)
+    
+    if(false){
+        console.log(
+            ShowAtualizados,
+            ItensAtualizados,
+            PaginacaoItensAtualizados,
+            ShowPromo,
+            ItensPromo,
+            PaginacaoShowPromo
+        )
+        SetShowPromo()
+        SetShowAtualizados()
+    }
 
     return(
         <>
@@ -128,13 +142,17 @@ function AdmPage(){
                             ).map((Valor,Index)=>{
                                 return(
                                     <tr key={Index} >
-                                        <th className="TableIndex">{Index}</th>
-                                        <th className="TableItem">{
-                                        `${Valor.Especificacao||Valor.Marca}: ${Valor.Sabor||Valor.Nome||Valor.Cor}`
-                                        }</th>
-                                        <th className="TableQntVal">{Valor.Tem}</th>
-                                        <th className="TableQntVal">{Valor.Valor}</th>
-                                        <th className="TableQntVal"> ## </th>
+                                        <th className="TableIndex">{Valor.ID}</th>
+                                        <th className="TableItem">
+                                            {`${Valor.Categoria} || ${Valor.Marca}: ${Valor.Nome}`}
+                                        </th>
+                                        <th className="TableQntVal">{Valor.Quantidade}</th>
+                                        <th className="TableQntVal">{Valor.Valor.DinPix}</th>
+                                        <th className="TableQntVal">
+                                            <Link to={`/ADMDescricao?${Valor.ID}`}>
+                                                <Edit className="SVG-white"/>
+                                            </Link>
+                                        </th>
                                     </tr>
                                 )
                             })}

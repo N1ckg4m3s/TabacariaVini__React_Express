@@ -1,0 +1,161 @@
+.FotoItem{position: relative;}
+.FotoItem input{
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background-color: #1b1b1bcc;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--TextoSecundario);
+    border-radius: 10px;
+}
+.FotoItem:hover input{display: block;}
+
+.OutrasInfo{
+    margin-left: 25px;
+    align-items:start !important}
+.OutrasInfo input, .OutrasInfo textarea{
+    width: 100%;
+    height: 30px;
+    background-color: var(--CardPrimary);
+    border: 0;
+    outline:none;
+    color: var(--TextoSecundario);
+}
+.OutrasInfo .InputDescricao{
+    height: 90px;
+    text-align: start;
+    resize: none
+}
+.OutrasInfo label{
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--TextoSecundario);
+}
+.OutrasInfo .InputPagamento{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.InputPagamento section{
+    display: flex;
+    width: 100%;
+    margin-bottom: 3px;
+}
+.InputPagamento section>label{width: 70px;font-size: 12px;}
+
+.SelectionDiv{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.SelectionDiv select{
+    background-color: var(--TableHead);
+    margin: 0 10px;
+    outline: none;
+    border: 0;
+    color: var(--TextoSecundario);
+    font-weight: bold;
+    padding: 5px;
+}
+
+.InformacoesEspecificas{
+    margin-top: 10px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+.InformacoesEspecificas .InputSabor{
+    width: 100%;
+    height: 30px;
+    background-color: var(--CardPrimary);
+    border: 0;
+    outline:none;
+    color: var(--TextoSecundario);
+    margin-bottom: 10px;
+}
+.InformacoesEspecificas label{
+    user-select: none;
+    font-weight: bold;
+    color: var(--TextoSecundario);
+}
+.InputsIntensidades section{
+    font-size: 10px;
+    font-weight: bold;
+    color: var(--TextoSecundario);
+    display: flex;
+    flex-direction: column;
+}
+
+.InputsIntensidades section input{
+    appearance: none;
+    background-color: white;
+    height: 10px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.Doce::before,.Doce::after{background-color: var(--Doce)}
+.Gelada::before,.Gelada::after{background-color: var(--Gelada)}
+.Quente::before,.Quente::after{background-color: var(--Quente)}
+.Citrica::before,.Citrica::after{background-color: var(--Citrica)}
+.Mentolada::before,.Mentolada::after{background-color: var(--Mentolada)}
+
+.InputsIntensidades section input::before{
+    content:"";
+    position: absolute;
+    display: block;
+    width: calc(100% * var(--Size));
+    z-index: 0;
+    height: 10px;
+    border-radius: 10px;
+}
+.InputsIntensidades section input::after{
+    content:"";
+    position: absolute;
+    display: block;
+    width: 20px;
+    top: -5px;
+    left: calc((100%*var(--Size)) - 10.5px);
+    z-index: 0;
+    height: 20px;
+    border-radius: 50%;
+}
+
+
+.InputsIntensidades section input[type="range"]::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0;
+    height: 0;
+}
+.InputsIntensidades section input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0;
+    height: 0;
+}
+.InputsIntensidades section input[type="range"]::-ms-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+
+.BotaoFinalizarADM{
+    padding: 10px;
+    margin: 20px 0;
+    width: 50%;
+    font-weight: bold;
+    background-color: var(--SucessButton);
+    color: var(--TextoSecundario);
+    border-radius: 10px;
+    border:0;
+}

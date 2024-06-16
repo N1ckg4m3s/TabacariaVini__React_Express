@@ -34,10 +34,8 @@ const salvarProdutosJSON = (produtos, callback) => {
         callback(null);
       }
     });
-  };
+};
   
-  
-
 /*                  FUNÇÕES LADO CLIENTE                */
 /*           FUNÇÕES GET           */
 exports.Obter_Produtos_Por_Categoria = (req,res_CallBack) => {
@@ -90,11 +88,10 @@ exports.Obter_Todos_Os_Produtos=(req,res)=>{
 /*           FUNÇÕES POST           */
 exports.AdicionarProduto = (req, res) => {
     const { Categoria, Cor, Descricao, Especificacao, Intensidades, Marca, Nome, Quantidade, Sabor, Valor, Imagem } = req.body;
-
+    const File=req.file
     lerArquivoJSON((err, produtos) => {
-        if (err) {
-            return res.status(500).json({ message: 'Erro interno ao ler o arquivo JSON' });
-        }
+        if (err) { return res.status(500).json({ message: 'Erro interno ao ler o arquivo JSON' });}
+
         // Cria o novo produto
         const novoProduto = {
             "ID":produtos.length,
@@ -108,8 +105,9 @@ exports.AdicionarProduto = (req, res) => {
             "QUANTIDADE":Quantidade,
             "SABOR":Sabor,
             "VALOR":Valor,
-            "IMAGEM": Imagem // Salva o caminho da imagem
+            "IMAGEM": File ? File.path: "ImagensBanco\\ImagemExVazia.png" // Salva o caminho da imagem
         };
+        console.log("ADD produto 3")
         // Adiciona o novo produto à lista de produtos
         produtos.push(novoProduto);
         // Salva a lista atualizada de produtos de volta no arquivo JSON
@@ -125,13 +123,24 @@ exports.AdicionarProduto = (req, res) => {
 
 /*           FUNÇÕES UPDATE           */
 exports.AlterarProduto=(req,res)=>{
-    console.log(req.body)
-    const {Id, Categoria, Cor, Descricao, Especificacao, Intensidades, Marca, Nome, Quantidade, Sabor, Valor, Imagem } = req.body;
+    const {Id, Categoria, Cor, Descricao, Especificacao, Intensidades, Marca, Nome, Quantidade, Sabor, Valor } = req.body;
+    const File=req.file
+    console.log("Alterar produto")
 
     lerArquivoJSON((err, produtos) => {
-        if (err) {
-            return res.status(500).json({ message: 'Erro interno ao ler o arquivo JSON' });
+        if (err) {return res.status(500).json({ message: 'Erro interno ao ler o arquivo JSON' });}
+        console.log("Id:",Id)
+        if(req.file && produtos.findIndex(e=>e.ID==Id)!=-1){
+            console.log("Devo alterar a imagem")
+            const Img=produtos[produtos.findIndex(e=>e.ID==Id)].IMAGEM
+            if(Img!="ImagensBanco\\ImagemExVazia.png"){
+                console.log("é diferente")
+                fs.unlink(Img, (err) => {
+                    if (err) {console.error('Erro ao excluir imagem antiga:', err);}
+                });
+            }
         }
+        console.log("To por aqui")
         const novoProduto = {
             "ID":Id,
             "CATEGORIA":Categoria,
@@ -144,15 +153,16 @@ exports.AlterarProduto=(req,res)=>{
             "QUANTIDADE":Quantidade,
             "SABOR":Sabor,
             "VALOR":Valor,
-            "IMAGEM": Imagem // Salva o caminho da imagem
+            "IMAGEM": File ? File.path: "ImagensBanco\\ImagemExVazia.png" // Salva o caminho da imagem
         };
-        produtos[produtos.findIndex(e=>e.ID==Id)]=(novoProduto);
+        console.log(novoProduto)
+        produtos[produtos.findIndex(e=>e.ID==Id)]=(novoProduto)
         
         salvarProdutosJSON(produtos, (err) => {
             if (err) {
             return res.status(500).json({ message: 'Erro interno ao salvar o arquivo JSON' });
             }
-            res.status(200).json({ message: 'Produto adicionado com sucesso' });
+            res.status(200).json({ message: 'Produto Atualizado com sucesso' });
         });
     });
 

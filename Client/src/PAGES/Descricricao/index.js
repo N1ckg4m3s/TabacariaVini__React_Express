@@ -78,7 +78,7 @@ function DescricaoPage(){
                 flexDirection:'column'}}>
                 <section className="ItemInfos">
                     <div className="FotoItem">
-                        <img src={ImgVazio} alt="Imagem do produto"/>
+                        <img src={(Item && `http://localhost:5000/${Item.Imagem}`) || ImgVazio} alt="Imagem do produto"/>
                     </div>
                     <div className="OutrasInfo">
                         <label className="NomeItem"> {

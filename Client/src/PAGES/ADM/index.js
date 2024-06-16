@@ -58,7 +58,7 @@ function AdmPage(){
             <TopBar TemBarraPesquisa={false}/>
             <div className="CorpoPagina" style={{flexDirection:'column'}}>
                 <section className="BotoesAcaoFetch">
-                    <button>NOVO</button>
+                    <Link to={"/ADMDescricao"}> NOVO </Link>
                     <button>FETCH</button>
                 </section>
                 {/* <section className="TabelaSection">

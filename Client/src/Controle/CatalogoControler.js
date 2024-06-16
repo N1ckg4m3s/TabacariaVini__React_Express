@@ -2,7 +2,7 @@ import { Produto } from "./Classes"
 var CaminhoAcessoApi="http://localhost:5000"
 
 const TransformarRetorno=(data)=>{
-    if(data.ID){
+    if(data.ID!==undefined || data.ID!==null){
         var NovoProduto=new Produto()
         NovoProduto.Categoria=data.CATEGORIA
         NovoProduto.Cor=data.COR
@@ -10,15 +10,12 @@ const TransformarRetorno=(data)=>{
         NovoProduto.Especificacao=data.ESPECIFICACAO
         NovoProduto.ID=data.ID
         NovoProduto.Imagem=data.IMAGEM
-        NovoProduto.Intensidades=data.INTENSIDADES
+        NovoProduto.Intensidades=JSON.parse(data.INTENSIDADES)
         NovoProduto.Marca=data.MARCA
         NovoProduto.Nome=data.NOME
         NovoProduto.Quantidade=data.QUANTIDADE
         NovoProduto.Sabor=data.SABOR
-        NovoProduto.Valor={
-            "DinPix":data.VALOR.DinPix,
-            "Cart":data.VALOR.Cart
-        };
+        NovoProduto.Valor=JSON.parse(data.VALOR)
        return NovoProduto
     }
 }

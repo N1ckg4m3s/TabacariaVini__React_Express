@@ -7,7 +7,7 @@ function ItemCard(Props){
     return(
         <Link to={`/Descricao?${Props.Objeto.ID}`} className="ItemCard">
             <div className="ItemCardMarca">{Props.Objeto.Marca}</div>
-            <img src={Props.Objeto.Imagem === "" ? ImgVazio : Props.Objeto.Imagem} alt="" />
+            <img src={Props.Objeto.Imagem === "" ? ImgVazio : `http://localhost:5000/${Props.Objeto.Imagem}`} alt="" />
             <div className="ItemCardValor">$ <span>{Props.Objeto.Valor.DinPix}</span></div>
         </Link>
     );

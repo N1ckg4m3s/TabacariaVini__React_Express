@@ -8,15 +8,13 @@ const TransformarRetorno=(data)=>{
     NovoProduto.Especificacao=data.ESPECIFICACAO
     NovoProduto.ID=data.ID
     NovoProduto.Imagem=data.IMAGEM
-    NovoProduto.Intensidades=data.INTENSIDADES
+    NovoProduto.Intensidades=JSON.parse(data.INTENSIDADES)
     NovoProduto.Marca=data.MARCA
     NovoProduto.Nome=data.NOME
     NovoProduto.Quantidade=data.QUANTIDADE
     NovoProduto.Sabor=data.SABOR
-    NovoProduto.Valor={
-        "DinPix":data.VALOR.DinPix,
-        "Cart":data.VALOR.Cart
-    };
+    NovoProduto.Valor=JSON.parse(data.VALOR)
+
    return NovoProduto
 }
 var CaminhoAcessoApi="http://localhost:5000"
@@ -59,25 +57,10 @@ class AdmControler{
     };
 
     AdicionarItem = (Produto) => {
-        console.log(Produto)
+        console.log(Produto.Imagem)
         fetch(`${CaminhoAcessoApi}/Adm`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            Categoria: Produto.Categoria,
-            Cor: Produto.Cor,
-            Descricao: Produto.Descricao,
-            Especificacao: Produto.Especificacao,
-            Imagem: Produto.Imagem,
-            Intensidades: Produto.Intensidades,
-            Marca: Produto.Marca,
-            Nome: Produto.Nome,
-            Quantidade: Produto.Quantidade,
-            Sabor: Produto.Sabor,
-            Valor: Produto.Valor,
-          }),
+          body: Produto
         })
         .then(response => {
           if (!response.ok) {throw new Error('Erro ao adicionar produto')}
@@ -89,29 +72,22 @@ class AdmControler{
         .catch(error => {
           console.error('Erro ao adicionar produto:', error);
         });
-      };
+    };
     AtualizarItem=(Id,Produto)=>{
-        console.log("Alterar")
         fetch(`${CaminhoAcessoApi}/Adm`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                Id: Id,
-                Categoria: Produto.Categoria,
-                Cor: Produto.Cor,
-                Descricao: Produto.Descricao,
-                Especificacao: Produto.Especificacao,
-                Imagem: Produto.Imagem,
-                Intensidades: Produto.Intensidades,
-                Marca: Produto.Marca,
-                Nome: Produto.Nome,
-                Quantidade: Produto.Quantidade,
-                Sabor: Produto.Sabor,
-                Valor: Produto.Valor,
-            }),
+            body: Produto
         })
+        .then(response => {
+          if (!response.ok) {throw new Error('Erro ao atualizar produto')}
+          return response.json();
+        })
+        .then(data => {
+          console.log('Produto atualizado com sucesso:', data);
+        })
+        .catch(error => {
+          console.error('Erro ao atualizar produto:', error);
+        });
     }
 }
 const AdmControlerInstance = new AdmControler();

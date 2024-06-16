@@ -9,14 +9,14 @@ import "./Style.css"
 import { useEffect, useState } from "react"
 import CatalogoControler from "../../Controle/CatalogoControler"
 import AdmControlerInstance from "../../Controle/AdmControler"
-import { Produto } from "../../Controle/Classes"
 function ADMDescricaoPage(){
-    const [ID,SetID]=useState(0);
+    const [ID,SetID]=useState("");
     // UseState Global
     const [Marca,SetMarca]=useState("");
     const [Nome,SetNome]=useState("");
     const [Descricao,SetDescricao]=useState("");
     const [Imagem,SetImagem]=useState("");
+    const [ImagemFile,SetImageFile]=useState(null);
     const [Quantidade,SetQuantidade]=useState(0);
     const [Valor,SetValor]=useState({"DinPix":0,"Cart":0});
     
@@ -37,7 +37,7 @@ function ADMDescricaoPage(){
         window.scrollTo(0, 0);
         const Id=search.slice(1) // slice() Remove o '?'
         const loadItems = async () => {
-            if(Id==null){return}
+            if(Id===""){return}
             let item = await CatalogoControler.ObterItemByIndex(Id);
             if(item){
                 await SetCategoria(item.Categoria)
@@ -57,24 +57,35 @@ function ADMDescricaoPage(){
         loadItems();
     }, [search]);
 
-    const Adicionar_Atualizar_Button=()=>{
-        const NovoProduto=new Produto()
+    const Adicionar_Atualizar_Button=async ()=>{
 
-        NovoProduto.Categoria=Categoria
-        NovoProduto.Cor=Cor
-        NovoProduto.Descricao=Descricao
-        NovoProduto.Especificacao=Especificacao
-        NovoProduto.Imagem=Imagem
-        NovoProduto.Intensidades=Intensidades
-        NovoProduto.Marca=Marca
-        NovoProduto.Nome=Nome
-        NovoProduto.Quantidade=Quantidade
-        NovoProduto.Sabor=Sabor
-        NovoProduto.Valor=Valor
+        const Form=new FormData()
+        Form.append("Categoria",Categoria)
+        Form.append("Cor",Cor)
+        Form.append("Descricao",Descricao)
+        Form.append("Especificacao",Especificacao)
+        Form.append("file",ImagemFile)
+        Form.append("Intensidades",JSON.stringify({
+            "Doce":Intensidades.Doce,
+            "Gelada":Intensidades.Gelada,
+            "Citrica":Intensidades.Citrica,
+            "Mentolada":Intensidades.Mentolada,
+            "Quente":Intensidades.Quente
+        }))
+        Form.append("Marca",Marca)
+        Form.append("Nome",Nome)
+        Form.append("Quantidade",Quantidade)
+        Form.append("Sabor",Sabor)
+        Form.append("Valor",JSON.stringify({
+            "DinPix":Valor.DinPix,
+            "Cart":Valor.Cart
+        }))
+
         if(ID){
-            AdmControlerInstance.AtualizarItem(ID,NovoProduto)
+            Form.append("Id",ID)
+            AdmControlerInstance.AtualizarItem(ID,Form)
         }else{
-            AdmControlerInstance.AtualizarItem(NovoProduto)
+            AdmControlerInstance.AdicionarItem(Form)
         }
     }
 
@@ -82,8 +93,10 @@ function ADMDescricaoPage(){
         const file = e.target.files[0];
         const reader = new FileReader();
         
-        reader.onload = function(event) {
-            SetImagem(event.target.result);
+        reader.onload = async(event)=>{
+            console.log(file)
+            await SetImagem(event.target.result);
+            await SetImageFile(file);
         };
         
         if (file) {
@@ -95,11 +108,11 @@ function ADMDescricaoPage(){
         <>
             <TopBar/>
             <div className="CorpoPagina" style={{flexDirection:'column',maxWidth:'830px',alignItems:'center'}}>
-                <h5 style={{textAlign:'center',color:"white"}}>[ALTERA / NOVO] PRODUTO</h5>
+                <h5 style={{textAlign:'center',color:"white"}}>{ID!==""?"ALTERA":"NOVO"} PRODUTO</h5>
 
                 <section className="ItemInfos">
                     <div className="FotoItem">
-                        <img src={Imagem || ImgVazio} alt="Imagem do produto"/>
+                        <img src={`http://localhost:5000/${Imagem}` || ImgVazio} alt="Imagem do produto"/>
                         <input type="file" onChange={AdicionarImagem}/>
                     </div>
                     <div className="OutrasInfo">

@@ -3,8 +3,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const Funcoes = require("./Funcoes")
-const multer = require('multer');
-const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,16 +11,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Configuração do Multer para salvar arquivos na pasta "ImagensBanco"
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'ImagensBanco/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // Nomeia o arquivo com a data atual para evitar conflitos
-  }
-});
 
-const upload = multer({ storage: storage });
+const upload = require("./multer")
 
 // Servir arquivos estáticos das imagens
 app.use('/ImagensBanco', express.static(path.join(__dirname, 'ImagensBanco')));
@@ -47,10 +37,10 @@ app.get('/Relativos', Funcoes.Obter_Produtos_Relativos);
 app.get('/Adm', Funcoes.Obter_Todos_Os_Produtos);
 
 // Rota para Adicionar um novo produto ao DB
-app.post('/Adm', upload.single('Imagem'), Funcoes.AdicionarProduto);
+app.post('/Adm', upload.single("file"), Funcoes.AdicionarProduto);
 
 // Rota para Atualizar um produto no DB
-app.put('/Adm', Funcoes.AlterarProduto);
+app.put('/Adm', upload.single("file"), Funcoes.AlterarProduto);
 
 // Rota para servir o frontend (React app)
 app.use(express.static(path.join(__dirname, '..', 'client', 'build')));

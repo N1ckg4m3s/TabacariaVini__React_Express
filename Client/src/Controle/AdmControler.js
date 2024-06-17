@@ -60,6 +60,7 @@ class AdmControler{
         console.log(Produto.Imagem)
         fetch(`${CaminhoAcessoApi}/Adm`, {
           method: 'POST',
+          headers:{'Authorization': `Bearer ${localStorage.getItem("TodayAccessKey")}`},
           body: Produto
         })
         .then(response => {
@@ -76,7 +77,8 @@ class AdmControler{
     AtualizarItem=(Id,Produto)=>{
         fetch(`${CaminhoAcessoApi}/Adm`, {
             method: 'PUT',
-            body: Produto
+            body: Produto,
+            headers:{'Authorization': `Bearer ${localStorage.getItem("TodayAccessKey")}`}
         })
         .then(response => {
           if (!response.ok) {throw new Error('Erro ao atualizar produto')}

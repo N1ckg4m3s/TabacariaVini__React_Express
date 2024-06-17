@@ -34,13 +34,18 @@ app.get('/OutrosMarca', Funcoes.Obter_Produtos_Da_Mesma_Marca);
 app.get('/Relativos', Funcoes.Obter_Produtos_Relativos);
 
 // Rota para obter todos os produtos do DB
-app.get('/Adm', Funcoes.Obter_Todos_Os_Produtos);
+app.get('/Adm',Funcoes.VerificarAcessKey, Funcoes.Obter_Todos_Os_Produtos);
 
 // Rota para Adicionar um novo produto ao DB
-app.post('/Adm', upload.single("file"), Funcoes.AdicionarProduto);
+app.post('/Adm',Funcoes.VerificarAcessKey, upload.single("file"), Funcoes.AdicionarProduto);
 
 // Rota para Atualizar um produto no DB
-app.put('/Adm', upload.single("file"), Funcoes.AlterarProduto);
+app.put('/Adm',Funcoes.VerificarAcessKey, upload.single("file"), Funcoes.AlterarProduto);
+
+
+// Rota para Atualizar um produto no DB
+app.post('/VerificarConta', Funcoes.VerificarConta);
+
 
 // Rota para servir o frontend (React app)
 app.use(express.static(path.join(__dirname, '..', 'client', 'build')));

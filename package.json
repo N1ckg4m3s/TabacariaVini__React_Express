@@ -6,7 +6,8 @@
   "scripts": {
     "client": "cd Client && npm start",
     "server": "cd Server && nodemon server.js",
-    "dev": "concurrently \"npm run client\" \"npm run server\""
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "start": "concurrently \"npm run client\" \"npm run server\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

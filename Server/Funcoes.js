@@ -7,18 +7,28 @@ const fs = require('fs');
 
 const Eo_Response_Express=(res)=>{return res.send && res.status && res.json}
 
+
+let Codigo_de_Acesso_de_Hoje=""
+// Codigo de acesso Gerado a cada vez que o server é iniciado
+const GerarCodigoAcesso=()=>{
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/*-+.,!@#$%&*()=';
+    let codigo = '';
+    for (let i = 0; i < 25; i++) { // Código de 10 caracteres alfanuméricos
+        codigo += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+    return codigo;
+}
+
 // Função para ler e processar o arquivo JSON
 const lerArquivoJSON = (callback) => {
   fs.readFile(DATA_FILE, 'utf8', (err, data) => {
     if (err) {
-      console.error("Erro ao ler arquivo JSON:", err);
       callback(err, null);
     } else {
       try {
         const jsonData = JSON.parse(data);
         callback(null, jsonData);
       } catch (error) {
-        console.error("Erro ao fazer parse do JSON:", error);
         callback(error, null);
       }
     }
@@ -27,10 +37,8 @@ const lerArquivoJSON = (callback) => {
 const salvarProdutosJSON = (produtos, callback) => {
     fs.writeFile(DATA_FILE, JSON.stringify(produtos, null, 2), (err) => {
       if (err) {
-        console.error("Erro ao salvar arquivo JSON:", err);
         callback(err);
       } else {
-        console.log("Arquivo JSON atualizado com sucesso");
         callback(null);
       }
     });
@@ -107,7 +115,6 @@ exports.AdicionarProduto = (req, res) => {
             "VALOR":Valor,
             "IMAGEM": File ? File.path: "ImagensBanco\\ImagemExVazia.png" // Salva o caminho da imagem
         };
-        console.log("ADD produto 3")
         // Adiciona o novo produto à lista de produtos
         produtos.push(novoProduto);
         // Salva a lista atualizada de produtos de volta no arquivo JSON
@@ -125,22 +132,15 @@ exports.AdicionarProduto = (req, res) => {
 exports.AlterarProduto=(req,res)=>{
     const {Id, Categoria, Cor, Descricao, Especificacao, Intensidades, Marca, Nome, Quantidade, Sabor, Valor } = req.body;
     const File=req.file
-    console.log("Alterar produto")
 
     lerArquivoJSON((err, produtos) => {
         if (err) {return res.status(500).json({ message: 'Erro interno ao ler o arquivo JSON' });}
-        console.log("Id:",Id)
         if(req.file && produtos.findIndex(e=>e.ID==Id)!=-1){
-            console.log("Devo alterar a imagem")
             const Img=produtos[produtos.findIndex(e=>e.ID==Id)].IMAGEM
             if(Img!="ImagensBanco\\ImagemExVazia.png"){
-                console.log("é diferente")
-                fs.unlink(Img, (err) => {
-                    if (err) {console.error('Erro ao excluir imagem antiga:', err);}
-                });
+                fs.unlink(Img, (err) => {});
             }
         }
-        console.log("To por aqui")
         const novoProduto = {
             "ID":Id,
             "CATEGORIA":Categoria,
@@ -155,7 +155,6 @@ exports.AlterarProduto=(req,res)=>{
             "VALOR":Valor,
             "IMAGEM": File ? File.path: "ImagensBanco\\ImagemExVazia.png" // Salva o caminho da imagem
         };
-        console.log(novoProduto)
         produtos[produtos.findIndex(e=>e.ID==Id)]=(novoProduto)
         
         salvarProdutosJSON(produtos, (err) => {
@@ -169,3 +168,26 @@ exports.AlterarProduto=(req,res)=>{
 }
 
 /* NÃO TERA FUNÇÕES DELETE, POIS O DB SE BASEIA NA LISTA RAIZ */
+
+/*           FUNÇÃO DE VERIFICAÇÃO DO LOGIN ADM            */
+exports.VerificarConta=(req,res)=>{
+    const {Email,Senha} = req.body
+    if(Email=="" || Email==undefined || Email.toLowerCase()!="emailteste123@teste.com"){
+        return res.status(401).json({msg:"Email Incorreto"})
+    }
+    if(Senha=="" || Senha==undefined || Senha!="Senha@Senha0123"){
+        return res.status(401).json({msg:"Senha Incorreta"})
+    }
+    return res.status(200).json({CodigoAcesso:Codigo_de_Acesso_de_Hoje})
+}
+
+exports.VerificarAcessKey=(req,res)=>{
+    const chaveDeAcesso = req.headers.authorization;
+    if (!chaveDeAcesso || chaveDeAcesso !== Codigo_de_Acesso_de_Hoje) {
+        return res.status(401).json({ mensagem: 'Acesso não autorizado.' });
+    }
+    next();
+}
+
+// Reseta o Codigo de acesso a cada 24h
+setInterval(() => {Codigo_de_Acesso_de_Hoje = GerarCodigoAcesso();}, 24 * 60 * 60 * 1000);

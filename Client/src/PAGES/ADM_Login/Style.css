@@ -1,0 +1,46 @@
+.LoginFrame{
+    width: 340px;
+    height: min-content;
+    padding:20px;
+    background-color: var(--NavFooterPrimary);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.LoginFrame *{margin: 0; color: white;}
+.LoginFrame>img{width: 100px;margin-bottom: 5px;}
+.LoginFrame>h5{margin-bottom: 20px; font-weight: normal;}
+
+.LoginFrame div{
+    width: 100%;
+    height: 50px;
+    position: relative;
+    margin-bottom: 20px;
+}
+.LoginFrame div input{
+    border: 0;
+    width: calc(100% - 30px);height: 30px;
+    background-color: var(--CardPrimary);
+    outline: none;
+    border-bottom: 2px solid var(--SecondNav);
+    padding-left: 30px;
+}
+.LoginFrame div .IconeInput{
+    position: absolute;
+    bottom: 7px;
+    left: 6px;
+}
+.LoginFrame div h5{font-weight: normal;}
+.OlhoSee{bottom: 10px !important;}
+.OlhoClose{bottom: 8.5px !important;}
+
+.LoginFrame button{
+    width: 150px;
+    height: 30px;
+    background-color: var(--SucessButton);
+    border: none;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+    margin-bottom:20px;
+}

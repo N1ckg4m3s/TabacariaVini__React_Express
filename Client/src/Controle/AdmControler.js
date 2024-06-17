@@ -21,10 +21,18 @@ var CaminhoAcessoApi="http://localhost:5000"
 class AdmControler{
     ObterItensSistema = () => {
         return fetch(`${CaminhoAcessoApi}/Adm`, {
-            method: 'GET'
+            method: 'GET',
+            headers:{'Authorization': `Bearer ${localStorage.getItem("TodayAccessKey")}`},
         })
         .then(response => {
-            if (!response.ok) {throw new Error('Erro ao obter produtos');}
+            if (!response.ok) {
+                if (response.status === 401) {
+                    console.log("Sem chave de acesso")
+                    window.location.href="/Adm"
+                    throw new Error('Acesso não autorizado. Verifique sua chave de acesso.');
+                }
+                throw new Error('Erro ao obter produtos');
+            }
             return response.json();
         })
         .then(data => {
@@ -33,10 +41,18 @@ class AdmControler{
     };
     ObterPromos = () => {
         return fetch(`${CaminhoAcessoApi}/Adm`, {
-            method: 'GET'
+            method: 'GET',
+            headers:{'Authorization': `Bearer ${localStorage.getItem("TodayAccessKey")}`},
         })
         .then(response => {
-            if (!response.ok) {throw new Error('Erro ao obter produtos');}
+            if (!response.ok) {
+                if (response.status === 401) {
+                    console.log("Sem chave de acesso")
+                    window.location.href="/Adm"
+                    throw new Error('Acesso não autorizado. Verifique sua chave de acesso.');
+                }
+                throw new Error('Erro ao obter produtos');
+            }
             return response.json();
         })
         .then(data => {
@@ -45,10 +61,18 @@ class AdmControler{
     };
     ObterItensAtualizados = () => {
         return fetch(`${CaminhoAcessoApi}/Adm`, {
-            method: 'GET'
+            method: 'GET',
+            headers:{'Authorization': `Bearer ${localStorage.getItem("TodayAccessKey")}`},
         })
         .then(response => {
-            if (!response.ok) {throw new Error('Erro ao obter produtos');}
+            if (!response.ok) {
+                if (response.status === 401) {
+                    console.log("Sem chave de acesso")
+                    window.location.href="/Adm"
+                    throw new Error('Acesso não autorizado. Verifique sua chave de acesso.');
+                }
+                throw new Error('Erro ao obter produtos');
+            }
             return response.json();
         })
         .then(data => {
@@ -57,15 +81,21 @@ class AdmControler{
     };
 
     AdicionarItem = (Produto) => {
-        console.log(Produto.Imagem)
         fetch(`${CaminhoAcessoApi}/Adm`, {
           method: 'POST',
           headers:{'Authorization': `Bearer ${localStorage.getItem("TodayAccessKey")}`},
           body: Produto
         })
         .then(response => {
-          if (!response.ok) {throw new Error('Erro ao adicionar produto')}
-          return response.json();
+            if (!response.ok) {
+                if (response.status === 401) {
+                    console.log("Sem chave de acesso")
+                    window.location.href="/Adm"
+                    throw new Error('Acesso não autorizado. Verifique sua chave de acesso.');
+                }
+                throw new Error('Erro ao adicionar produto')
+            }
+            return response.json();
         })
         .then(data => {
           console.log('Produto adicionado com sucesso:', data);
@@ -74,14 +104,21 @@ class AdmControler{
           console.error('Erro ao adicionar produto:', error);
         });
     };
-    AtualizarItem=(Id,Produto)=>{
+    AtualizarItem=(_,Produto)=>{
         fetch(`${CaminhoAcessoApi}/Adm`, {
             method: 'PUT',
             body: Produto,
             headers:{'Authorization': `Bearer ${localStorage.getItem("TodayAccessKey")}`}
         })
         .then(response => {
-          if (!response.ok) {throw new Error('Erro ao atualizar produto')}
+          if (!response.ok) {
+                if (response.status === 401) {
+                    console.log("Sem chave de acesso")
+                    window.location.href="/Adm"
+                    throw new Error('Acesso não autorizado. Verifique sua chave de acesso.');
+                }
+                throw new Error('Erro ao atualizar produto')
+            }
           return response.json();
         })
         .then(data => {

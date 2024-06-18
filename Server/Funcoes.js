@@ -7,8 +7,6 @@ const fs = require('fs');
 
 const Eo_Response_Express=(res)=>{return res.send && res.status && res.json}
 
-
-let Codigo_de_Acesso_de_Hoje=""
 // Codigo de acesso Gerado a cada vez que o server é iniciado
 const GerarCodigoAcesso=()=>{
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/*-+.,!@#$%&*()=';
@@ -18,7 +16,7 @@ const GerarCodigoAcesso=()=>{
     }
     return codigo;
 }
-
+let Codigo_de_Acesso_de_Hoje=GerarCodigoAcesso()
 // Função para ler e processar o arquivo JSON
 const lerArquivoJSON = (callback) => {
   fs.readFile(DATA_FILE, 'utf8', (err, data) => {
@@ -201,9 +199,9 @@ exports.VerificarConta=(req,res)=>{
     return res.status(200).json({CodigoAcesso:Codigo_de_Acesso_de_Hoje})
 }
 
-exports.VerificarAcessKey=(req,res)=>{
+exports.VerificarAcessKey=(req,res,next)=>{
     const chaveDeAcesso = req.headers.authorization;
-    if (!chaveDeAcesso || chaveDeAcesso !== Codigo_de_Acesso_de_Hoje) {
+    if (!chaveDeAcesso || chaveDeAcesso !== `Bearer ${Codigo_de_Acesso_de_Hoje}`) {
         return res.status(401).json({ mensagem: 'Acesso não autorizado.' });
     }
     next();

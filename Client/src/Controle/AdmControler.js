@@ -1,21 +1,22 @@
 import { Produto } from "./Classes"
 
 const TransformarRetorno=(data)=>{
-    var NovoProduto=new Produto()
-    NovoProduto.Categoria=data.CATEGORIA
-    NovoProduto.Cor=data.COR
-    NovoProduto.Descricao=data.DESCRIÇÃO
-    NovoProduto.Especificacao=data.ESPECIFICACAO
-    NovoProduto.ID=data.ID
-    NovoProduto.Imagem=data.IMAGEM
-    NovoProduto.Intensidades=JSON.parse(data.INTENSIDADES)
-    NovoProduto.Marca=data.MARCA
-    NovoProduto.Nome=data.NOME
-    NovoProduto.Quantidade=data.QUANTIDADE
-    NovoProduto.Sabor=data.SABOR
-    NovoProduto.Valor=JSON.parse(data.VALOR)
-
-   return NovoProduto
+    if(data.ID!==undefined || data.ID!==null){
+        var NovoProduto=new Produto()
+        NovoProduto.Categoria=data.CATEGORIA
+        NovoProduto.Cor=data.COR
+        NovoProduto.Descricao=data.DESCRIÇÃO
+        NovoProduto.Especificacao=data.ESPECIFICACAO
+        NovoProduto.ID=data.ID
+        NovoProduto.Imagem=data.IMAGEM
+        NovoProduto.Intensidades= (data.INTENSIDADES!=="" && JSON.parse(data.INTENSIDADES)) || ""
+        NovoProduto.Marca=data.MARCA
+        NovoProduto.Nome=data.NOME
+        NovoProduto.Quantidade=data.QUANTIDADE
+        NovoProduto.Sabor=data.SABOR
+        NovoProduto.Valor=JSON.parse(data.VALOR) || ""
+       return NovoProduto
+    }
 }
 var CaminhoAcessoApi="http://localhost:5000"
 class AdmControler{

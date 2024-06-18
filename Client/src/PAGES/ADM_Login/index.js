@@ -34,7 +34,8 @@ function AdmLoginPage(){
             });
             if (!response.ok) {throw new Error('Erro ao verificar conta');}
             const responseData = await response.json();
-            localStorage.setItem("TodayAcessKey",responseData)
+            localStorage.setItem("TodayAccessKey",responseData.CodigoAcesso)
+            window.location.href="/AdmItens"
         } catch (error) {
             SetMsgError(true);
         }

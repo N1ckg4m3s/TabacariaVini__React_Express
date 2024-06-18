@@ -35,10 +35,10 @@ function CatalogoPage(){
                         case "#Categoria=Essencia":
                             Valores = await CatalogoControler.ObterCategoriaEssencias();
                             break;
-                            case "#Categoria=Carvao_Aluminio":
+                        case "#Categoria=Carvao_Aluminio":
                             Valores = await CatalogoControler.ObterCategoriaCarvao_Aluminio();
                             break;
-                            case "#Categoria=Acessorio":
+                        case "#Categoria=Acessorio":
                             Valores = await CatalogoControler.ObterCategoriaAcessorios();
                             break;
                         default:
@@ -52,15 +52,19 @@ function CatalogoPage(){
                         await SetPaginacao([0, 0]);
                     }
                 } else if (search !== "") {
-                    console.log("Busca por Search:", search);
-                    // Implemente lógica de busca por search se necessário
+                    Valores = await CatalogoControler.FiltrarPorPesquisa(search.split("=")[1])
+                    if (Valores) {
+                        await SetProdutosCatalogo(Valores);
+                        await SetPaginacao([0, Math.ceil(Valores.length / CardPorPagina)]);
+                    } else {
+                        await SetProdutosCatalogo([]);
+                        await SetPaginacao([0, 0]);
+                    }
                 } else {
                     console.log("Deu Else");
-                    // Implemente lógica para outras condições
                 }
             } catch (error) {
                 console.error("Erro ao carregar dados:", error);
-                // Trate o erro de forma adequada (ex: exibindo mensagem para o usuário)
             }
         };
     

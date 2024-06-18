@@ -19,11 +19,12 @@ app.use('/ImagensBanco', express.static(path.join(__dirname, 'ImagensBanco')));
 
 // Rota para obter todos os produtos ou por ID
 app.get('/Produtos',(req,res)=>{
-  const{Id}=req.query
-  if(!Id){
-    Funcoes.Obter_Produtos_Por_Categoria(req,res)
-  }else{
+  if(req.query.Id){
     Funcoes.Obter_Produto_Por_Id(req,res)
+  }else if(req.query.Busca){
+    Funcoes.Obter_Por_Pesquisa(req,res)
+  }else{
+    Funcoes.Obter_Produtos_Por_Categoria(req,res)
   }
 });
 

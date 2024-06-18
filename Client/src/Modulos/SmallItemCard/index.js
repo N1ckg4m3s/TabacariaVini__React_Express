@@ -10,7 +10,7 @@ function SmallItemCard(Props){
             {Props.MostrarMarca &&
                 <div>{Props.Objeto.Marca}</div>
             }
-            <img src={Props.Objeto.Imagem!==""?Props.Objeto.Imagem:ImgVazio} alt=""></img>
+            <img src={Props.Objeto.Imagem!==""?`http://localhost:5000/${Props.Objeto.Imagem}` : ImgVazio} alt=""></img>
             <div>{Props.Objeto.Cor || Props.Objeto.Nome}</div>
         </Link>
     )

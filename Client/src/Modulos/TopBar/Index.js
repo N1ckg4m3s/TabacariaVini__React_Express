@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import "./Style.css"
 
 function TopBar(Props){
+    const [TextoPesquisa,SetTextoPesquisa]=useState("")
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [MenuAberto,SetMenuAberto]=useState(false)
     useEffect(() => {
@@ -25,6 +26,13 @@ function TopBar(Props){
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    const Pesquisar=()=>{
+        if(TextoPesquisa!==""){
+            window.location.href=`/Catalogo?Busca=${TextoPesquisa}`
+        }
+    }
+
     return(
         <nav>
             <div className="BarraPrincipal">
@@ -51,8 +59,21 @@ function TopBar(Props){
                 <div className="BarraSecundaria">
                     <section>
                         <Lupa className="SVG-white Lupa"/>
-                        <input placeholder="..." type="Text"/>
-                        <SendSing className="SVG-white SendSing"/>
+                        <input
+                            value={TextoPesquisa}
+                            placeholder="..."
+                            type="Text"
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    Pesquisar();
+                                }
+                            }}
+                            onChange={(e)=>{SetTextoPesquisa(e.target.value)}}
+                        />
+                        <SendSing
+                            onClick={()=>Pesquisar()}
+                            className="SVG-white SendSing"
+                        />
                     </section>
                 </div>
             )}

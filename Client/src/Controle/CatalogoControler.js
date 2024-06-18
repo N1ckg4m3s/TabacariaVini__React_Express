@@ -10,12 +10,12 @@ const TransformarRetorno=(data)=>{
         NovoProduto.Especificacao=data.ESPECIFICACAO
         NovoProduto.ID=data.ID
         NovoProduto.Imagem=data.IMAGEM
-        NovoProduto.Intensidades=JSON.parse(data.INTENSIDADES)
+        NovoProduto.Intensidades= (data.INTENSIDADES!=="" && JSON.parse(data.INTENSIDADES)) || ""
         NovoProduto.Marca=data.MARCA
         NovoProduto.Nome=data.NOME
         NovoProduto.Quantidade=data.QUANTIDADE
         NovoProduto.Sabor=data.SABOR
-        NovoProduto.Valor=JSON.parse(data.VALOR)
+        NovoProduto.Valor=JSON.parse(data.VALOR) || ""
        return NovoProduto
     }
 }
@@ -67,9 +67,20 @@ class CatalogoControler{
         });
     }
 
-    FiltrarPorPesquisa=()=>{}
-
-    FiltrarPorFiltro=()=>{}
+    FiltrarPorPesquisa=(Pesquisa)=>{
+        return fetch(`${CaminhoAcessoApi}/Produtos?Busca=${Pesquisa}`, {
+            method: 'GET'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao obter produtos');
+            }
+            return response.json();
+        })
+        .then(data => {
+            return data.map((Valor) => TransformarRetorno(Valor));
+        });
+    }
 
     AdicionarProduto=(Valor)=>{
         fetch(`${CaminhoAcessoApi}/Produtos`, {
@@ -77,8 +88,6 @@ class CatalogoControler{
             body:{Valor}
         })
     }
-
-    AtualizarProduto=()=>{}
 
     ObterItemByIndex=(Id)=>{
         return fetch(`${CaminhoAcessoApi}/Produtos?Id=${Id}`, {

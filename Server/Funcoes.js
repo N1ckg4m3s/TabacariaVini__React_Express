@@ -47,6 +47,7 @@ const salvarProdutosJSON = (produtos, callback) => {
 /*                  FUNÇÕES LADO CLIENTE                */
 /*           FUNÇÕES GET           */
 exports.Obter_Produtos_Por_Categoria = (req,res_CallBack) => {
+    console.log("Obter produtos por categoria")
     const{Categ}=req.query
     categoria=(Categ=="Carvao"||Categ=="Aluminio")?"Carvao_Aluminio":Categ
     lerArquivoJSON((err, data=[]) => {
@@ -81,6 +82,25 @@ exports.Obter_Produto_Por_Id=(req,res)=>{
     const{Id}=req.query
     lerArquivoJSON((err,data)=>{
         res.json(data[Id])
+    })
+}
+
+exports.Obter_Por_Pesquisa=(req,res)=>{
+    const {Busca}=req.query
+    lerArquivoJSON((err,data)=>{
+        res.status(200).json(data.filter((Valor,Index)=>{
+            let GetMarca=Valor.MARCA.toLowerCase()
+            let GetSabor=Valor.SABOR.toLowerCase()
+            let GetCor=Valor.COR.toLowerCase()
+            let GetEspecificacao=Valor.ESPECIFICACAO.toLowerCase()
+            let GetNome=Valor.NOME.toLowerCase()
+            let BuscaLwC=Busca.toLowerCase()
+            return GetMarca.includes(Busca.BuscaLwC) ||
+                GetSabor.split(" ").every(e=>e.includes(BuscaLwC)) ||
+                GetCor.includes(BuscaLwC) ||
+                GetEspecificacao.includes(BuscaLwC) ||
+                GetNome.split(" ").every(e=>e.includes(BuscaLwC))
+        }))
     })
 }
 /* NÃO TERA FUNÇÕES DELETE, POIS O DB SE BASEIA NA LISTA RAIZ */

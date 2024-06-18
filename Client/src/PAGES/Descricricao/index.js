@@ -41,6 +41,7 @@ function DescricaoPage(){
         };
         loadItems();
     }, [search]);
+    
     return(
         <>
             <TopBar  TemBarraPesquisa={true}/>
@@ -89,50 +90,58 @@ function DescricaoPage(){
                         }
                         </label>
                         <label className="DescricaoItem"> {Item&&Item.Descricao} </label>
+                        {(Item && Item.Intensidades!=="")&&
                         <div className="SaborIntencity">
                             <h4>Doce: $$$$</h4>
-                            <progress value={10} max={100} className="Doce" style={{backgroundColor:'transparent'}}/>
+                            <progress value={Item.Intensidades.Doce} max={100} className="Doce" style={{backgroundColor:'transparent'}}/>
                             <h4>Gelada: $$$$</h4>
-                            <progress value={20} max={100} className="Gelada" style={{backgroundColor:'transparent'}}/>
+                            <progress value={Item.Intensidades.Gelada} max={100} className="Gelada" style={{backgroundColor:'transparent'}}/>
                             <h4>Quente: $$$$</h4>
-                            <progress value={30} max={100} className="Quente" style={{backgroundColor:'transparent'}}/>
+                            <progress value={Item.Intensidades.Quente} max={100} className="Quente" style={{backgroundColor:'transparent'}}/>
                             <h4>Citrica: $$$$</h4>
-                            <progress value={40} max={100} className="Citrica" style={{backgroundColor:'transparent'}}/>
+                            <progress value={Item.Intensidades.Citrica} max={100} className="Citrica" style={{backgroundColor:'transparent'}}/>
                             <h4>Mentolada: $$$$</h4>
-                            <progress value={50} max={100} className="Mentolada" style={{backgroundColor:'transparent'}}/>
+                            <progress value={Item.Intensidades.Mentolada} max={100} className="Mentolada" style={{backgroundColor:'transparent'}}/>
                         </div>
+                        }
                         <button  onClick={()=>SetCarrinhoFrame(true)} className="BotaoCompra">
                             <Carrinho className="SVG-white"/>
                             ADICIONAR CARRINHO
                         </button>
                     </div>
                 </section>
-                <h4 className="TextoSection">OUTRAS DA MESMA MARCA</h4>
-                <section className="ItensMarca">
-                    {MesmaMarca&&
-                        MesmaMarca.map((Produto,Index) => {
+
+                {(MesmaMarca && MesmaMarca.length>0) &&
+                <>
+                    <h4 className="TextoSection">OUTRAS DA MESMA MARCA</h4>
+                    <section className="ItensMarca">
+                        {MesmaMarca.map((Produto,Index) => {
                             return <SmallItemCard
                                 key={Index}
                                 index={Index}
                                 Objeto={Produto}
                                 MostrarMarca={false}
                             />
-                        })
-                    }
-                </section>
-                <h4 className="TextoSection">ESSENCIAS PARECIDAS</h4>
-                <section className="ItensParecidos">
-                    {Relativo&&
-                        Relativo.map((Produto,Index) => {
+                        })}
+                    </section>
+                </>
+                }
+
+                {(Relativo && Relativo.length>0) &&
+                <>
+                    <h4 className="TextoSection">ESSENCIAS PARECIDAS</h4>
+                    <section className="ItensParecidos">
+                        {Relativo.map((Produto,Index) => {
                             return <SmallItemCard
                                 key={Index}
                                 index={Index}
                                 Objeto={Produto}
                                 MostrarMarca={true}
                             />
-                        })
-                    }
-                </section>
+                        })}
+                    </section>
+                </>
+                }
             </div>
             
             <FooterBar/>

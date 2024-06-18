@@ -45,14 +45,13 @@ const salvarProdutosJSON = (produtos, callback) => {
 /*                  FUNÇÕES LADO CLIENTE                */
 /*           FUNÇÕES GET           */
 exports.Obter_Produtos_Por_Categoria = (req,res_CallBack) => {
-    console.log("Obter produtos por categoria")
     const{Categ}=req.query
     categoria=(Categ=="Carvao"||Categ=="Aluminio")?"Carvao_Aluminio":Categ
-    lerArquivoJSON((err, data=[]) => {
+    lerArquivoJSON((err, data) => {
         if(Eo_Response_Express(res_CallBack)){
-            res_CallBack.json(data.filter((Valor,Index)=>(Valor.CATEGORIA==categoria&&{...Valor, Id: Index})))
+                res_CallBack.json(data.filter((Valor,Index)=>Valor.CATEGORIA==categoria))
             }else{
-                res_CallBack(data.filter((Valor,Index)=> Valor.CATEGORIA==categoria&&{...Valor, Id: Index}))
+                res_CallBack(data.filter((Valor,Index)=>Valor.CATEGORIA==categoria))
             }
         })
     return false;
@@ -60,16 +59,16 @@ exports.Obter_Produtos_Por_Categoria = (req,res_CallBack) => {
 exports.Obter_Produtos_Da_Mesma_Marca=(req,res)=>{
     const { Marca, Id } = req.query;
     this.Obter_Produtos_Por_Categoria(req,(Data)=>{
-        res.json(Data.filter((Valor, index) =>
-            Valor.MARCA === Marca && index != Id
+        res.json(Data.filter((Valor) =>{
+            return Valor.ID != Id && Valor.MARCA === Marca}
         ));
     })
 }
 exports.Obter_Produtos_Relativos=(req,res)=>{
     const { Sabor_Especificacao, Id } = req.query;
     this.Obter_Produtos_Por_Categoria(req,(Data)=>{
-        res.json(Data.filter((Valor, index) =>{
-            return index!==Id && Valor.CATEGORIA=="Essencia" && (
+        res.json(Data.filter((Valor, index) => {
+            return Valor.ID!==Id && Valor.CATEGORIA=="Essencia" && (
                 Valor.SABOR.toLowerCase().split(" ").every(
                     SaborTeste=>Sabor_Especificacao.toLowerCase().split(" ").includes(SaborTeste))
             ) || false}

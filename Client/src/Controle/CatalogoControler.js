@@ -104,7 +104,7 @@ class CatalogoControler{
     }
 
     ObterItemDaMarca=(Produto)=>{
-        return fetch(`${CaminhoAcessoApi}/OutrosMarca?Categ=${Produto.Categoria}&Marca=${Produto.Marca}&Id=${Produto.Id}`, {
+        return fetch(`${CaminhoAcessoApi}/OutrosMarca?Categ=${Produto.Categoria}&Marca=${Produto.Marca}&Id=${Produto.ID}`, {
             method: 'GET'
         }).then(response => {
             if (!response.ok) {

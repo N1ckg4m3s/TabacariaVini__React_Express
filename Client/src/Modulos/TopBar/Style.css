@@ -47,9 +47,8 @@ nav .BarraPrincipal .LinksAcesso{
     border-radius: 2px;
 }
 .BarraSecundaria section{
-    width: calc(50% - 80px);
-    min-width: 350px;
-    height: calc(100% - 10px);
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
     background-color: var(--CardPrimary);
     display: flex;
     align-items: center;
@@ -62,6 +61,14 @@ nav .BarraPrincipal .LinksAcesso{
     border: 0;
     background-color: transparent;
 }
+
+.BarraSecundaria > div{
+    width: calc(50% - 80px);
+    min-width: 350px;
+    height: calc(100% - 10px);
+    display: flex;
+}
+
 .AtalhoBotoes .BotaoCarrinho{
     width: min-content;
     height: min-content;

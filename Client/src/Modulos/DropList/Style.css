@@ -1,0 +1,28 @@
+.BotaoDropList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--CardPrimary);
+    border: 0;
+    margin-left: 10px;
+    outline: none;
+    color: var(--TextoSecundario);
+    height: 100%;
+}
+.BotaoDropList svg{
+    margin-left: 5px;
+    transition: .2s;
+}
+
+.ArticleDropList{position: relative;}
+.ArticleDropList > div{
+    position: absolute;
+    z-index: 5;
+    width: calc(100% - 10px);
+    height: max-content;
+    background-color: white;
+    margin-left: 10px;
+}
+
+.ArticleDropList div *{margin: 0;padding: 0;}
+.ArticleDropList div ul li{margin-left: 10px;}

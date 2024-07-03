@@ -1,0 +1,60 @@
+.SelectionDiv{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.SelectionDiv select{
+    background-color: var(--TableHead);
+    margin: 0 10px;
+    outline: none;
+    border: 0;
+    color: var(--TextoSecundario);
+    font-weight: bold;
+    padding: 5px;
+}
+
+
+.SectionComboPromocao{width: 100%;margin-top: 10px;}
+.SelectionsContainer{
+    width: 100%;
+    display: flex;
+}
+.SelectionsContainer select{
+    width: 100%;
+    height: 36px;
+    background-color: var(--TableHead);
+    color: var(--TextoSecundario);
+    font-weight: bold;
+    outline: none;
+    border: 0;
+}
+.SelectionsContainer select:nth-child(1){margin-right: 10px;}
+.SectionComboPromocao .Input_Selection{display: flex;}
+.SectionComboPromocao .Input_Selection input{margin-right: 10px;}
+.SectionComboPromocao .Input_Selection select{
+    width: 50px;
+    background-color: var(--CardPrimary);
+    outline: none;
+    border: 0;
+    color: var(--TextoSecundario);
+}
+.SectionComboPromocao > *{margin-top: 10px;}
+.SectionComboPromocao input{
+    width: -webkit-fill-available;
+    height: 36px;
+    background-color: var(--CardPrimary);
+    outline: none;
+    border: 0;
+    color: var(--TextoSecundario);
+    font-weight: bold;
+    outline: none;
+    padding: 0 5px;
+}
+
+
+.GrupoItensCombo{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid var(--TextoSecundario);
+}
+.SectionComboPromocao h4{color: var(--TextoSecundario);}

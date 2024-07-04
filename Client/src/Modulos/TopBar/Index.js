@@ -11,6 +11,8 @@ import { ReactComponent as Lupa } from './Imagens/Lupa.svg';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 
+import DropList from "../DropList/Index";
+
 import "./Style.css"
 
 function TopBar(Props){
@@ -57,24 +59,27 @@ function TopBar(Props){
             </div>
             {Props.TemBarraPesquisa &&(
                 <div className="BarraSecundaria">
-                    <section>
-                        <Lupa className="SVG-white Lupa"/>
-                        <input
-                            value={TextoPesquisa}
-                            placeholder="..."
-                            type="Text"
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                    Pesquisar();
-                                }
-                            }}
-                            onChange={(e)=>{SetTextoPesquisa(e.target.value)}}
-                        />
-                        <SendSing
-                            onClick={()=>Pesquisar()}
-                            className="SVG-white SendSing"
-                        />
-                    </section>
+                    <div>
+                        <section>
+                            <Lupa className="SVG-white Lupa"/>
+                            <input
+                                value={TextoPesquisa}
+                                placeholder="..."
+                                type="Text"
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        Pesquisar();
+                                    }
+                                }}
+                                onChange={(e)=>{SetTextoPesquisa(e.target.value)}}
+                            />
+                            <SendSing
+                                onClick={()=>Pesquisar()}
+                                className="SVG-white SendSing"
+                            />
+                        </section>
+                        <DropList/>
+                    </div>
                 </div>
             )}
         </nav>

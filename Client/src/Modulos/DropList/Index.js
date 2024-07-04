@@ -8,7 +8,7 @@ function DropList(Props){
             <button className="BotaoDropList"
                onClick={()=>SetAberto(!Aberto)}
             >
-                PROMOÇÃO
+                PROMOÇÕES
                 <Seta
                     className="SVG-white"
                     style={Aberto ? { transform: 'rotate(180deg)' } : {}}

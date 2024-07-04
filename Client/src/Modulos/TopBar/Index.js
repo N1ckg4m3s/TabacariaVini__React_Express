@@ -11,7 +11,7 @@ import { ReactComponent as Lupa } from './Imagens/Lupa.svg';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 
-import DropList from "../DropList/Index";
+// import DropList from "../DropList/Index";
 
 import "./Style.css"
 
@@ -78,7 +78,6 @@ function TopBar(Props){
                                 className="SVG-white SendSing"
                             />
                         </section>
-                        <DropList/>
                     </div>
                 </div>
             )}

@@ -20,14 +20,11 @@
     z-index: 5;
     width: calc(100% - 10px);
     height: max-content;
-<<<<<<< HEAD
     background-color: var(--CardPrimary);
     margin-left: 10px;
     color: var(--TextoSecundario);
-=======
     background-color: white;
     margin-left: 10px;
->>>>>>> 6366ebcc148feae1b30e057ac37a3f08e1251377
 }
 
 .ArticleDropList div *{margin: 0;padding: 0;}

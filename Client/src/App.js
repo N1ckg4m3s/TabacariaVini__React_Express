@@ -42,12 +42,12 @@ export default App;
 
 <type> (Scope): Desc
 
-feat: Indica uma nova funcionalidade adicionada.
-fix: Indica uma correção de bug.
-docs: Alterações relacionadas à documentação.
-style: Alterações que não afetam o código de execução.
-refactor: Uma mudança no código que não corrige um bug nem adiciona uma funcionalidade.
-test: Adição ou modificação de testes.
-chore: Tarefas de build, configuração, etc.
+FEAT: Indica uma nova funcionalidade adicionada.
+FIX: Indica uma correção de bug.
+DOCS: Alterações relacionadas à documentação.
+STYLE: Alterações que não afetam o código de execução.
+REFACTOR: Uma mudança no código que não corrige um bug nem adiciona uma funcionalidade.
+TEST: Adição ou modificação de testes.
+CHORE: Tarefas de build, configuração, etc.
 
 */

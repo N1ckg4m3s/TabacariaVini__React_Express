@@ -1,0 +1,36 @@
+[
+  {
+    "ID": "0",
+    "NOME": "BANANA",
+    "VALORSEMDESCONTO": "100",
+    "VALORCOMDESCONTO": "50",
+    "ITENSFIXOS": [
+      {
+        "CLASSE":"Carvao_Aluminio",
+        "MARCA":"BRAZUCA",
+        "COR":"Cor",
+        "ESPECIFICACAO":"Especificação",
+        "NOME":"3 (unid.)"
+      },
+      {
+        "CLASSE":"Carvao_Aluminio",
+        "MARCA":"ZOMO",
+        "COR":"Cor",
+        "ESPECIFICACAO":"Especificação",
+        "NOME":"250g"
+      }
+    ],
+    "ITENSSELECIONAVEIS":[
+      {
+        "CLASSE":"Essencia",
+        "MARCA":"ZIGGY",
+        "SELECIONADO":-1
+      },
+      {
+        "CLASSE":"Essencia",
+        "MARCA":"ZOMO",
+        "SELECIONADO":-1
+      }
+    ]
+  }
+]

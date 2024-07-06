@@ -4,12 +4,12 @@ import FooterBar from "../../Modulos/FooterBar/Index";
 import TopBar from "../../Modulos/TopBar/Index";
 
 import { ReactComponent as Whats } from "./Imagens/whatsapp.svg";
-import { ReactComponent as Edit } from "./Imagens/Edit.svg";
-import { ReactComponent as Remov } from "./Imagens/Remover.svg";
-import { ReactComponent as Certo } from "./Imagens/Certo.svg";
 
 import "./Style.css";
 import CatalogoControlerInstance from "../../Controle/CatalogoControler";
+import RowCombo from "../../Modulos/RowTabela/RowCombo";
+import RowSimples from "../../Modulos/RowTabela/RowProduto";
+
 
 function CarrinhoPage() {
     const [RecarregarTela, SetRecarregarTela] = useState(false);
@@ -39,8 +39,17 @@ Aguardo confirmação. Obrigado!`.replace(/,/g, '');
             await CarrinhoControler.obterDoBrowser();
             try {
                 const itensPromises = CarrinhoControler.TodosOsItens.map(async (Value) => {
-                    const item = await CatalogoControlerInstance.ObterItemByIndex(Value.Produto.Classe, Value.Produto.Id);
-                    return { Produto: item, Quantidade: Value.Quantidade };
+                    if (Value.Produto === undefined) {
+                        const Combo = await CatalogoControlerInstance.ObterComboByID(Value.Id);
+                        await Promise.all(Combo.ItensSelecionaveis.map(async (V, index) => {
+                            const Selc = await CatalogoControlerInstance.ObterItemByIndex(Value.Selecionados[index].SELECIONADO);
+                            V.SELECIONADO = Selc.Nome;
+                        }));
+                        return { TipoCard: "Combo", Produto: Combo };
+                    } else {
+                        const item = await CatalogoControlerInstance.ObterItemByIndex(Value.Produto.Id);
+                        return { TipoCard: "Produto", Produto: item, Quantidade: Value.Quantidade };
+                    }
                 });
                 const itens = await Promise.all(itensPromises);
                 SetItensCarrinho(itens);
@@ -48,7 +57,6 @@ Aguardo confirmação. Obrigado!`.replace(/,/g, '');
                 console.error("Erro ao carregar itens do carrinho:", error);
             }
         }
-
         fetchItensCarrinho();
     }, [Editando]);
 
@@ -86,66 +94,31 @@ Aguardo confirmação. Obrigado!`.replace(/,/g, '');
                     </thead>
                     <tbody>
                     {
-                    ItensCarrinho.map((Value,Index)=>{
-                    return (
-                        <tr key={Index}>
-                            <th className="TableIndex">{Index<9 ? `0${Index+1}` : Index+1}</th>
-                            <th className="TableItem"> {`${Value.Produto.Especificacao || Value.Produto.Marca}: 
-                            ${
-                                (Value.Produto.Nome ||
-                                Value.Produto.Cor
-                                )}`} </th>
-                            <th className="TableQntVal">
-                                {Editando===Index?
-                                    <input
-                                        type="Number"
-                                        value={NovoQuantos}
-                                        onChange={(Tgt)=>SetNovoQuantos(Tgt.target.value)}/>
-                                    :Value.Quantidade
-                                }
-                            </th>
-                            <th className="TableQntVal">
-                                {(
-                                    /* Dieferentes e Não falou a forma de pagamento #### */
-                                    /* Dieferentes e falou a forma de pagamento, Valor de cada */
-                                    /* Não Dieferentes, Falar Valor */
-                                    // Quantidade=Editando!==-1?Value.Quantidade:NovoQuantos
-                                    Value.Produto.Preco.DinPix!==Value.Produto.Preco.Cart?
-                                        FormaPagamento===""? "##,##" :
-                                            (FormaPagamento==="Pix"||FormaPagamento==="Dim")? Value.Produto.Preco.DinPix*(Editando!==-1?Value.Quantidade:NovoQuantos):
-                                            FormaPagamento==="Cart"? Value.Produto.Preco.Cart*(Editando!==-1?Value.Quantidade:NovoQuantos):0:
-                                    Value.Produto.Preco.DinPix*(Editando!==-1?NovoQuantos:Value.Quantidade)
-                                )
-                                }
-                            </th>
-                            {
-                                Editando===Index?
-                                <th className="TableQntVal">
-                                    <button className="AceitarTroca-Item"
-                                        onClick={async()=>{
-                                            await CarrinhoControler.Atualizar(Index,NovoQuantos)
-                                            SetEditando(-1)
-                                        }}>
-                                        <Certo className="SVG-green"/>
-                                    </button>
-                                </th>:
-                                <th className="TableQntVal">
-                                    <button className="Edit-Item"
-                                        onClick={async()=>{
-                                            await SetNovoQuantos(Value.Quantidade)
-                                            SetEditando(Index)
-                                        }}
-                                    ><Edit className="SVG-blue"/></button>
-                                    <button className="Delete-Item"
-                                        onClick={async()=>{
-                                            await CarrinhoControler.Remover(Index)
-                                            SetRecarregarTela(!RecarregarTela)
-                                        }}
-                                    ><Remov className="SVG-red"/></button>
-                                </th>
-                            }
-                        </tr>
-                    )})}
+                    ItensCarrinho.map((Value,Index)=>
+                        Value.TipoCard==="Combo"?
+                        <RowCombo
+                            Index={Index}
+                            Value={Value}
+                            Editando={Editando}
+                            NovoQuantos={NovoQuantos}
+                            SetNovoQuantos={SetNovoQuantos}
+                            FormaPagamento={FormaPagamento}
+                            SetEditando={SetEditando}
+                            SetRecarregarTela={SetRecarregarTela}
+                            RecarregarTela={RecarregarTela}
+                        />:
+                        <RowSimples
+                            Index={Index}
+                            Value={Value}
+                            Editando={Editando}
+                            NovoQuantos={NovoQuantos}
+                            SetNovoQuantos={SetNovoQuantos}
+                            FormaPagamento={FormaPagamento}
+                            SetEditando={SetEditando}
+                            SetRecarregarTela={SetRecarregarTela}
+                            RecarregarTela={RecarregarTela}
+                        />
+                    )}
                     </tbody>
                 </table>
 

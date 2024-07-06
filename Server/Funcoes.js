@@ -2,7 +2,8 @@ const path = require('path');
 const multer = require('multer');
 
 // Caminho para o arquivo JSON
-const DATA_FILE = path.join(__dirname, 'DataBaseLocal', 'Produtos.json');
+const DATA_FILE_PRODUTOS = path.join(__dirname, 'DataBaseLocal', 'Produtos.json');
+const DATA_FILE_COMBOS = path.join(__dirname, 'DataBaseLocal', 'ComboPromocoes.json');
 const fs = require('fs');
 
 const Eo_Response_Express=(res)=>{return res.send && res.status && res.json}
@@ -18,7 +19,7 @@ const GerarCodigoAcesso=()=>{
 }
 let Codigo_de_Acesso_de_Hoje=GerarCodigoAcesso()
 // Função para ler e processar o arquivo JSON
-const lerArquivoJSON = (callback) => {
+const lerArquivoJSON = (DATA_FILE, callback) => {
   fs.readFile(DATA_FILE, 'utf8', (err, data) => {
     if (err) {
       callback(err, null);
@@ -32,7 +33,7 @@ const lerArquivoJSON = (callback) => {
     }
   });
 };
-const salvarProdutosJSON = (produtos, callback) => {
+const salvarProdutosJSON = (DATA_FILE, produtos, callback) => {
     fs.writeFile(DATA_FILE, JSON.stringify(produtos, null, 2), (err) => {
       if (err) {
         callback(err);
@@ -47,7 +48,7 @@ const salvarProdutosJSON = (produtos, callback) => {
 exports.Obter_Produtos_Por_Categoria = (req,res_CallBack) => {
     const{Categ}=req.query
     categoria=(Categ=="Carvao"||Categ=="Aluminio")?"Carvao_Aluminio":Categ
-    lerArquivoJSON((err, data) => {
+    lerArquivoJSON(DATA_FILE_PRODUTOS,(err, data) => {
         if(Eo_Response_Express(res_CallBack)){
                 res_CallBack.json(data.filter((Valor,Index)=>Valor.CATEGORIA==categoria))
             }else{
@@ -77,14 +78,36 @@ exports.Obter_Produtos_Relativos=(req,res)=>{
 }
 exports.Obter_Produto_Por_Id=(req,res)=>{
     const{Id}=req.query
-    lerArquivoJSON((err,data)=>{
+    lerArquivoJSON(DATA_FILE_PRODUTOS,(err,data)=>{
         res.json(data[Id])
+    })
+}
+
+exports.Obter_Combo_Por_Id=(req,res)=>{
+    const{Id}=req.query
+    lerArquivoJSON(DATA_FILE_COMBOS,(err,data)=>{
+        res.json(data[Id])
+    })
+}
+exports.Obter_Produtos_Combo=(req,res)=>{
+    const{Id}=req.query
+    lerArquivoJSON(DATA_FILE_COMBOS,(err,dataCombos)=>{
+        const Combo=dataCombos[Id]
+        lerArquivoJSON(DATA_FILE_PRODUTOS,(err,dataProdutos)=>{
+            if(dataProdutos!==null){
+                const dataFiltrada = dataProdutos.filter(produto =>
+                    corresponde = Combo.ITENSSELECIONAVEIS.some(item =>
+                        item.CLASSE === produto.CATEGORIA && item.MARCA === produto.MARCA
+                ))
+                return res.json(dataFiltrada);
+            }
+        })
     })
 }
 
 exports.Obter_Por_Pesquisa=(req,res)=>{
     const {Busca}=req.query
-    lerArquivoJSON((err,data)=>{
+    lerArquivoJSON(DATA_FILE_PRODUTOS,(err,data)=>{
         res.status(200).json(data.filter((Valor,Index)=>{
             let GetMarca=Valor.MARCA.toLowerCase()
             let GetSabor=Valor.SABOR.toLowerCase()
@@ -105,7 +128,7 @@ exports.Obter_Por_Pesquisa=(req,res)=>{
 /*                    FUNÇÕES LADO ADM                   */
 /*           FUNÇÕES GET           */
 exports.Obter_Todos_Os_Produtos=(req,res)=>{
-    lerArquivoJSON((err,data)=>{
+    lerArquivoJSON(DATA_FILE_PRODUTOS,(err,data)=>{
         res.json(data)
     })
 }
@@ -114,7 +137,7 @@ exports.Obter_Todos_Os_Produtos=(req,res)=>{
 exports.AdicionarProduto = (req, res) => {
     const { Categoria, Cor, Descricao, Especificacao, Intensidades, Marca, Nome, Quantidade, Sabor, Valor, Imagem } = req.body;
     const File=req.file
-    lerArquivoJSON((err, produtos) => {
+    lerArquivoJSON(DATA_FILE_PRODUTOS,(err, produtos) => {
         if (err) { return res.status(500).json({ message: 'Erro interno ao ler o arquivo JSON' });}
 
         // Cria o novo produto
@@ -135,7 +158,7 @@ exports.AdicionarProduto = (req, res) => {
         // Adiciona o novo produto à lista de produtos
         produtos.push(novoProduto);
         // Salva a lista atualizada de produtos de volta no arquivo JSON
-        salvarProdutosJSON(produtos, (err) => {
+        salvarProdutosJSON(DATA_FILE_PRODUTOS, produtos, (err) => {
             if (err) {
             return res.status(500).json({ message: 'Erro interno ao salvar o arquivo JSON' });
             }
@@ -150,7 +173,7 @@ exports.AlterarProduto=(req,res)=>{
     const {Id, Categoria, Cor, Descricao, Especificacao, Intensidades, Marca, Nome, Quantidade, Sabor, Valor } = req.body;
     const File=req.file
 
-    lerArquivoJSON((err, produtos) => {
+    lerArquivoJSON(DATA_FILE_PRODUTOS,(err, produtos) => {
         if (err) {return res.status(500).json({ message: 'Erro interno ao ler o arquivo JSON' });}
         if(req.file && produtos.findIndex(e=>e.ID==Id)!=-1){
             const Img=produtos[produtos.findIndex(e=>e.ID==Id)].IMAGEM
@@ -174,7 +197,7 @@ exports.AlterarProduto=(req,res)=>{
         };
         produtos[produtos.findIndex(e=>e.ID==Id)]=(novoProduto)
         
-        salvarProdutosJSON(produtos, (err) => {
+        salvarProdutosJSON(DATA_FILE_PRODUTOS,produtos, (err) => {
             if (err) {
             return res.status(500).json({ message: 'Erro interno ao salvar o arquivo JSON' });
             }

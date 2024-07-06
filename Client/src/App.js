@@ -11,6 +11,7 @@ import CarrinhoControlerInstance from './Controle/CarrinhoControler';
 import ADMDescricaoPage from './PAGES/ADM_Descricricao';
 import AdmLoginPage from './PAGES/ADM_Login';
 import ADMComboPromocaoPage from './PAGES/ADM_Combo_Promocao';
+import DescricaoComboPage from './PAGES/Descricricao_Combo';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/Carrinho" element={<CarrinhoPage />} />
           <Route path="/Catalogo" element={<CatalogoPage />} />
           <Route path="/Descricao" element={<DescricaoPage />} />
+          <Route path="/DescricaoCombo" element={<DescricaoComboPage />} />
         </Routes>
       </Beforeunload>
     </Router>

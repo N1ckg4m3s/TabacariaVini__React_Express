@@ -24,7 +24,7 @@ function DescricaoPage(){
     const AdicionarProdutoNoCarrinho=async()=>{
         await SetCarrinhoFrame(false);
         await SetNumeroItensCarrinho(1)
-        await CarrinhoControler.Adicionar(Item.constructor.name,Item.Id,NumeroItensCarrinho);
+        await CarrinhoControler.Adicionar(Item.Categoria,Item.ID,NumeroItensCarrinho);
     }
 
     useEffect(() => {

@@ -1,0 +1,34 @@
+.sectionDescricaoCombo{
+    display: flex;
+}
+
+.sectionDescricaoCombo div{
+    width: 200px;
+    height: min-content;
+    background-color: var(--TableHead);
+    border: 1px solid var(--BorderTable);
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.sectionDescricaoCombo div span{margin: 10px 0; color: var(--TextoSecundario);}
+.sectionDescricaoCombo div span span{
+    font-size: 20px;
+    font-family: 'Irish Grover';
+}
+.BotaoCompra{
+    display: flex;
+    align-items: center;
+    background-color: var(--SucessButton);
+    width: max-content;
+    padding: 5px;
+    color: var(--TextoSecundario);
+    outline: none;
+    border: 0;
+    border-radius: 8px;
+}
+
+.TableItem{display: flex;flex-direction: column;}
+.TableItem span{color: red;}

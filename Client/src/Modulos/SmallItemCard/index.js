@@ -5,8 +5,16 @@ import { Link } from "react-router-dom"
 
 import "./Style.css"
 function SmallItemCard(Props){
+
+    const EfetuarClick=(e)=>{
+        if(Props.CustonFunction){
+            e.preventDefault()
+            Props.CustonFunction()
+        }
+    }
+
     return(
-        <Link to={`/Descricao?${Props.Objeto.ID}`} className="SmallItemCard">
+        <Link to={`/Descricao?${Props.Objeto.ID}`} className="SmallItemCard" onClick={EfetuarClick}>
             {Props.MostrarMarca &&
                 <div>{Props.Objeto.Marca}</div>
             }

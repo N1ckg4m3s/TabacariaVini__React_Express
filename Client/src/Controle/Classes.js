@@ -24,7 +24,26 @@ export class Produto{
         return `  • ${Quantas} | ${this.Marca}: ${this.Nome}`
     }
 }
+export class Combo{
+    ID=0;
+    Nome="";
+    ValorComDesconto=0;
+    ValorSemDesconto=0;
+    ItensFixos=[];
+    ItensSelecionaveis=[];
+    ParaMensagem(Quantas){
+        return `  • ${Quantas} | ${this.Marca}: ${this.Nome}`
+    }
+}
 
+export class ComboNoCarrinho{
+    Selecionados=[]
+    Id=0
+    constructor(Id,Selecionados){
+        this.Id=Id
+        this.Selecionados=Selecionados
+    }
+}
 export class ProdutoCarinho{
     Produto={
         Classe:"",

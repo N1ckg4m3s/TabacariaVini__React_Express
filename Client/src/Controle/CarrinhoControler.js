@@ -1,13 +1,18 @@
-import { ProdutoCarinho } from "./Classes" 
+import { Combo, ComboNoCarrinho, ProdutoCarinho } from "./Classes" 
 const LocalStorageName="Carrinho-V1.2"
 class CarrinhoControler{
     TodosOsItens=[];
 
-    Adicionar=(Classe, Id, Quantidade)=>{
-        console.log("Adicionar",Classe, Id ,Quantidade)
-        this.TodosOsItens.push(new ProdutoCarinho(Classe, Id,Quantidade))
+    Adicionar=(Classe, Id, Quantidade_Item)=>{
+        console.log("Adicionar",Classe, Id ,Quantidade_Item)
+        if(Classe==="Combo"){
+            console.log("é combo")
+            this.TodosOsItens.push(new ComboNoCarrinho(Id,Quantidade_Item.ItensSelecionaveis))
+        }else{
+            console.log("é Produto")
+            this.TodosOsItens.push(new ProdutoCarinho(Id,Classe,Quantidade_Item))
+        }
         this.salvarNoBrowser()
-
     }
 
     Atualizar=(Index, Quantidade)=>{this.TodosOsItens[Index].Quantidade=Quantidade}
@@ -41,34 +46,49 @@ class CarrinhoControler{
         }
     };
     
-    
     ObterItens=()=>{return this.TodosOsItens}
     
     salvarNoBrowser = () => {
-        localStorage.setItem(LocalStorageName,this.TodosOsItens.map((Value)=>{
-            return `${Value.Quantidade}:${Value.Produto.Id}:${Value.Produto.Classe}/*/`
-        }));
+        localStorage.setItem(LocalStorageName, JSON.stringify(this.TodosOsItens.map((item) => {
+            console.log(item)
+            if (item.Produto===undefined) {
+                return {
+                    tipo: "Combo",
+                    id: item.Id,
+                    itensSelecionaveis: item.Selecionados
+                };
+            } else {
+                return {
+                    tipo: "ProdutoCarinho",
+                    id: item.Produto.Id,
+                    classe: item.Produto.Classe,
+                    quantidade: item.Quantidade
+                };
+            }
+        })));
     }
-      
     obterDoBrowser = () => {
-        this.TodosOsItens=[];
+        this.TodosOsItens = [];
         const dadosCarrinho = localStorage.getItem(LocalStorageName);
-        if(dadosCarrinho&&dadosCarrinho!==""){
-            const Itens=dadosCarrinho.split('/*/')
-            Itens.forEach((Value)=>{
-                Value=Value.replace(/,/g, '')
-                if(Value!==""){
-                    this.TodosOsItens.push(
-                        new ProdutoCarinho(
-                            Value.split(":")[2],
-                            Value.split(":")[1],
-                            Value.split(":")[0],
-                        )
-                    )
+        if (dadosCarrinho && dadosCarrinho !== "") {
+            const itens = JSON.parse(dadosCarrinho);
+            itens.forEach((item) => {
+                if (item.tipo === "Combo") {
+                    this.TodosOsItens.push(new ComboNoCarrinho(
+                        item.id,
+                        item.itensSelecionaveis
+                    ));
+                } else if (item.tipo === "ProdutoCarinho") {
+                    this.TodosOsItens.push(new ProdutoCarinho(
+                        item.id,
+                        item.classe,
+                        item.quantidade
+                    ));
                 }
-            })
+            });
         }
     }
+    
 }
 const CarrinhoControlerInstance = new CarrinhoControler();
 export default CarrinhoControlerInstance;

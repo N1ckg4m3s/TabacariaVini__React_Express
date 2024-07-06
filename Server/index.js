@@ -28,6 +28,9 @@ app.get('/Produtos',(req,res)=>{
   }
 });
 
+app.get('/Combo',Funcoes.Obter_Combo_Por_Id);
+app.get('/RelativoCombo',Funcoes.Obter_Produtos_Combo);
+
 // Rota para obter todos os produtos da mesma marca
 app.get('/OutrosMarca', Funcoes.Obter_Produtos_Da_Mesma_Marca);
 
